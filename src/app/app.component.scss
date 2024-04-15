@@ -1,0 +1,226 @@
+.container {
+  background-color: rgba(235, 235, 235, 0.8);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: auto;
+}
+
+.header {
+  width: 100%;
+  height: 19vh;
+  background: linear-gradient(90deg, #020835 30%, #040d50 100%);
+  box-shadow: 0 12px 22px 0 rgba(0, 0, 0, 0.4);
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 62vh;
+}
+
+.container-vantagens {
+  width: 100%;
+}
+
+.box-vantagem {
+  padding: 10px 20px;
+}
+
+.box {
+  text-align: center;
+  border-radius: 20px;
+  margin: 20px 0;
+  padding: 15px 0;
+  border: 3px solid #040d50;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.35);
+}
+
+.box div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 15px;
+}
+
+.box h1 {
+  font-weight: 700;
+  color: #f5a11d;
+  font-size: 24px;
+}
+
+.box h2 {
+  font-weight: 600;
+  color: #040d50;
+  font-size: 18px;
+}
+
+.texto-vantagem {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+}
+
+.texto-vantagem h2 {
+  color: #040d50;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.texto-vantagem span {
+  font-weight: 700;
+  color: #f5a11d;
+}
+
+.title {
+  margin-top: 10px;
+  text-align: center;
+  color: #040d50;
+  font-size: 36px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.container-app {
+  background-color: #040d50;
+}
+
+.app {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+
+.app-desc h1 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.app-desc h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.app-desc h2 span {
+  font-weight: 600;
+  color: #f5a11d;
+}
+
+.check {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.check h2 {
+  margin-left: 15px;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.app-download {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.app-download h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 10px 0 15px 5px;
+  color: #f5a11d;
+}
+
+.app-download div {
+  display: flex;
+}
+
+.container-missao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px 20px;
+  color: #040d50;
+  background: url("../../src/assets/background-video.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+  gap: 40px;
+  h1 {
+    font-size: 36px;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  h2 {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+  }
+}
+
+.footer {
+  width: 100%;
+  background-color: #040d50;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: white;
+  padding: 20px 0;
+}
+
+.column {
+  display: flex;
+  justify-content: space-around;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.bottom {
+  text-align: center;
+}
+
+@media screen and (min-width: 1550px) {
+  .texto-vantagem{
+    padding: 20px 60px;
+  }
+  .box-vantagem{
+    padding: 10px 60px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .box-vantagem {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+  }
+
+  .box {
+    width: auto;
+  }
+
+  .container-check {
+    display: flex;
+    gap: 20px;
+  }
+}

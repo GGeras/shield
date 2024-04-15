@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="header">
+    <img src="../assets/logo_inteira.png" alt="" width="320px" height="100px" />
+  </div>
+  <div class="body w-100">
+    <ng-container *ngIf="!detalhes">
+      <div style="padding: 0 20px">
+        <app-search-fipe
+          (setValue)="value = $event"
+          (setDetails)="detalhes = $event"
+        ></app-search-fipe>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="detalhes">
+      <div style="padding: 0 10px">
+        <app-details
+          [detalhes]="detalhes"
+          [value]="value"
+          (out)="detalhes = $event"
+        ></app-details>
+      </div>
+    </ng-container>
+    <div class="container-vantagens">
+      <div class="texto-vantagem">
+        <div class="w-100">
+          <img src="../assets/gif/8617218-unscreen.gif" alt="" width="145px" />
+        </div>
+        <h2 class="w-100">
+          Em 2023, a Shield Proteção Veicular se tornou a empresa de
+          <span>MAIOR DESTAQUE</span> em <span>APENAS 3 ANOS</span> de atuação,
+          oferecendo inovação e proteção confiável, conquistando a confiança dos
+          clientes.
+        </h2>
+      </div>
+      <div class="title">Serviços</div>
+      <div class="box-vantagem">
+        <div class="box w-100" *ngFor="let item of cards">
+          <div>
+            <img [src]="item.url" alt="" width="75px" />
+            <h1>{{ item.titulo }}</h1>
+            <h2>{{ item.msg }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-app w-100">
+      <div class="app w-100">
+        <div class="app-desc">
+          <h1>Conheça nosso App</h1>
+        </div>
+        <div class="app-desc w-90">
+          <h2>
+            Aplicativo <span>exclusivo</span> para associados Shield. Com nosso
+            aplicativo você pode visualizar tudo o que precisa de maneira
+            <span>rápida</span>, <span>prática</span> e <span>segura</span>.
+          </h2>
+        </div>
+        <div class="container-check w-90">
+          <div class="check">
+            <img src="../assets/check.png" alt="" width="60px" />
+            <h2>2 via de boleto</h2>
+          </div>
+          <div class="check">
+            <img src="../assets/check.png" alt="" width="60px" />
+            <h2>Cotação</h2>
+          </div>
+          <div class="check">
+            <img src="../assets/check.png" alt="" width="60px" />
+            <h2>Benefícios</h2>
+          </div>
+          <div class="check">
+            <img src="../assets/check.png" alt="" width="60px" />
+            <h2>Fácil e prático</h2>
+          </div>
+        </div>
+        <div class="app-download w-90">
+          <h1>Baixe o app</h1>
+          <div class="w-100">
+            <img src="../assets/google-play.png" alt="" width="175px" />
+            <img src="../assets/apple-story.png" alt="" width="175px" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-missao">
+    <h1>Visão e valores</h1>
+    <h2 class="w-80">
+      Na Shield Proteção Veicular, nosso compromisso é com a sua segurança.
+      Oferecemos excelência em proteção veicular, com atendimento personalizado
+      e produtos de qualidade. Confie na Shield para proteger o que é mais
+      importante para você.
+    </h2>
+  </div>
+  <div class="footer">
+    <div class="column w-100">
+      <span>Sobre Nós</span>
+      <span>Fale Conosco</span>
+      <span>Serviços</span>
+    </div>
+    <div class="bottom w-100">
+      <div>Assistência 24h: 0800-030-6672</div>
+    </div>
+    <div class="bottom w-100">
+      <div>© 2024 Shield. Todos os direitos reservados.</div>
+    </div>
+    <div class="bottom w-100">
+      Av. Getulio Vargas, 1328 - Uberlândia - MG 42.468.909/0001-19 - ASSOCIACAO
+      SHIELD DE VEICULOS
+    </div>
+  </div>
+</div>

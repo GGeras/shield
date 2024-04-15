@@ -1,0 +1,73 @@
+/* Base styles */
+.accordionBox {
+  width: 100%;
+  height: auto;
+}
+
+.accordionContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordionHeader {
+  display: flex;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 18px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #040d50 30%, #020835 100%);
+  border: 2px solid #f5a11d;
+  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.accordionContent {
+  display: none;
+  width: 100%;
+  height: 200px;
+  background-color: #040d50;
+  border: 2px solid #f5a11d;
+  padding: 20px 0;
+}
+
+/* Modifier */
+.accordionContent--expanded {
+  display: block;
+}
+
+/* Elements */
+.accordionIconLeft {
+  margin-left: 5px;
+}
+
+.accordionTitle {
+  width: 75%;
+  margin: 0 10px;
+}
+
+.accordionArrow {
+  margin-right: 10px;
+}
+
+.accordionLabel {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 10px;
+  color: #f5a11d;
+}
+
+.selectContainer {
+  margin: 10px;
+}
+
+.accordionSelect {
+  width: 50%;
+  padding: 4px 8px;
+  color: white;
+  background-color: #040d50;
+  border: 2px solid #f5a11d;
+  border-radius: 8px;
+  font-weight: 400;
+}
