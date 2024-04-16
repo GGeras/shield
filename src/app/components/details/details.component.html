@@ -27,8 +27,8 @@
   <div class="mid w-100">
     <div class="option w-100">
       <div class="op-top w-100">
-        <h1 *ngIf="moto">MÉDIO</h1>
-        <h1 *ngIf="carro">BÁSICO</h1>
+        <h1 *ngIf="moto || caminhao">MÉDIO</h1>
+        <h1 *ngIf="carro || bike || carreta">BÁSICO</h1>
         <div>
           <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
           <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
@@ -37,6 +37,13 @@
       </div>
       <div class="op-desc w-100">
         <ul>
+          <ng-container *ngIf="bike">
+            <li>Roubo e furto</li>
+            <li>Perda Total 100% da FIPE</li>
+          </ng-container>
+          <ng-container *ngIf="carreta">
+            <li>Roubo e furto</li>
+          </ng-container>
           <ng-container *ngIf="carro">
             <li>Assistência 24h</li>
             <li>Guincho 600km (300 ida e 300 volta)</li>
@@ -51,7 +58,7 @@
             <li>Uber/Pop</li>
             <li>Guarda Veículo</li>
           </ng-container>
-          <ng-container *ngIf="moto">
+          <ng-container *ngIf="moto || caminhao">
             <li>Roubo e furto</li>
             <li>Incêndio</li>
             <li>Fenômenos Naturais</li>
@@ -69,6 +76,7 @@
           <img
             src="../../../assets/logo.png"
             alt=""
+            *ngIf="!carreta && !bike"
             width="95px"
             style="margin-bottom: 45px"
           />
@@ -76,30 +84,48 @@
           <button>Selecionar</button>
         </div>
       </div>
-      <div class="line"></div>
-      <div class="op-top w-100">
-        <h1 *ngIf="carro">MÉDIO</h1>
-        <h1 *ngIf="moto">COMPLETO</h1>
-        <div>
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
+      <ng-container *ngIf="carro || moto || caminhao">
+        <div class="line"></div>
+        <div class="op-top w-100">
+          <h1 *ngIf="carro">MÉDIO</h1>
+          <h1 *ngIf="moto || caminhao">COMPLETO</h1>
+          <div>
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+          </div>
         </div>
-      </div>
-      <h2>Contempla <span>tudo do Plano Básico</span> com adicional de :</h2>
+        <h2>Contempla <span>tudo do Plano Básico</span> com adicional de :</h2>
 
-      <div class="op-desc w-100">
-        <ul>
-          <li>Danos a Terceiros</li>
-        </ul>
-        <div class="action">
-          <h1>R$ {{ value2 }}</h1>
-          <button>Selecionar</button>
+        <div class="op-desc w-100">
+          <ul>
+            <li>Danos a Terceiros</li>
+          </ul>
+          <div class="action">
+            <h1>R$ {{ value2 }}</h1>
+            <button>Selecionar</button>
+          </div>
         </div>
-      </div>
-      <div class="line"></div>
+      </ng-container>
       <ng-container *ngIf="carro">
+        <div class="line"></div>
         <div class="op-top w-100">
           <h1>COMPLETO</h1>
           <div>

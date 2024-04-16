@@ -26,6 +26,8 @@ export class DetailsComponent implements OnInit {
         this.valorTotal = this.detalhes.Valor;
         break;
       case 2:
+        this.value1 = this.returnCaminhaoValue(1);
+        this.value2 = this.returnCaminhaoValue(2);
         this.valorTotal = this.detalhes.Valor;
         break;
       case 3:
@@ -299,48 +301,48 @@ export class DetailsComponent implements OnInit {
     }
   }
   returnCarretaValue(): string {
-    if (this.value <= 10000) {
+    if (this.value <= 1000000) {
       return '151.20';
-    } else if (this.value <= 20000) {
+    } else if (this.value <= 2000000) {
       return '163.80';
-    } else if (this.value <= 30000) {
+    } else if (this.value <= 3000000) {
       return '176.40';
-    } else if (this.value <= 40000) {
+    } else if (this.value <= 4000000) {
       return '189.00';
-    } else if (this.value <= 50000) {
+    } else if (this.value <= 5000000) {
       return '201.60';
-    } else if (this.value <= 60000) {
+    } else if (this.value <= 6000000) {
       return '214.20';
-    } else if (this.value <= 70000) {
+    } else if (this.value <= 7000000) {
       return '226.80';
-    } else if (this.value <= 80000) {
+    } else if (this.value <= 8000000) {
       return '239.40';
-    } else if (this.value <= 90000) {
+    } else if (this.value <= 9000000) {
       return '252.00';
-    } else if (this.value <= 100000) {
+    } else if (this.value <= 10000000) {
       return '264.69';
-    } else if (this.value <= 110000) {
+    } else if (this.value <= 11000000) {
       return '277.20';
-    } else if (this.value <= 120000) {
+    } else if (this.value <= 12000000) {
       return '289.80';
-    } else if (this.value <= 130000) {
+    } else if (this.value <= 13000000) {
       return '302.40';
-    } else if (this.value <= 140000) {
+    } else if (this.value <= 14000000) {
       return '315.00';
-    } else if (this.value <= 150000) {
+    } else if (this.value <= 15000000) {
       return '327.60';
-    } else if (this.value <= 160000) {
+    } else if (this.value <= 16000000) {
       return '340.20';
-    } else if (this.value <= 170000) {
+    } else if (this.value <= 17000000) {
       return '352.80';
-    } else if (this.value <= 180000) {
+    } else if (this.value <= 18000000) {
       return '365.40';
-    } else if (this.value <= 190000) {
+    } else if (this.value <= 19000000) {
       return '378.00';
-    } else if (this.value <= 200000) {
+    } else if (this.value <= 20000000) {
       return '390.60';
     }
-    return '0;'
+    return '0;';
   }
   returnBikeValue(): string {
     if (this.value <= 240000) {
@@ -460,9 +462,60 @@ export class DetailsComponent implements OnInit {
     } else if (this.value <= 5000000) {
       return '241.89';
     }
-    return '0'
-}
-
+    return '0';
+  }
+  returnCaminhaoValue(opcao: number): string {
+    if (this.value <= 50000) {
+      if (opcao === 1) {
+        return '323.44';
+      } else if (opcao === 2) {
+        return '423.44';
+      }
+    } else if (this.value <= 80000) {
+      if (opcao === 1) {
+        return '465.11';
+      } else if (opcao === 2) {
+        return '565.11';
+      }
+    } else if (this.value <= 100000) {
+      if (opcao === 1) {
+        return '499.87';
+      } else if (opcao === 2) {
+        return '599.87';
+      }
+    } else if (this.value <= 120000) {
+      if (opcao === 1) {
+        return '460.75';
+      } else if (opcao === 2) {
+        return '559.75';
+      }
+    } else if (this.value <= 140000) {
+      if (opcao === 1) {
+        return '536.17';
+      } else if (opcao === 2) {
+        return '635.17';
+      }
+    } else if (this.value <= 160000) {
+      if (opcao === 1) {
+        return '596.93';
+      } else if (opcao === 2) {
+        return '695.93';
+      }
+    } else if (this.value <= 180000) {
+      if (opcao === 1) {
+        return '657.71';
+      } else if (opcao === 2) {
+        return '756.71';
+      }
+    } else if (this.value <= 200000) {
+      if (opcao === 1) {
+        return '731.28';
+      } else if (opcao === 2) {
+        return '830.28';
+      }
+    }
+    return '0';
+  }
   get carro(): boolean {
     return this.detalhes.type === 1;
   }

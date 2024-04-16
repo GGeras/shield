@@ -70,12 +70,14 @@
     display: flex;
     .action {
       display: flex;
-      width: 35%;
+      width: 50%;
       justify-content: end;
-      align-items: center;
+      align-items: end;
       flex-direction: column;
       gap: 10px;
       margin-bottom: 10px;
+      margin-right: 9px;
+
       h1 {
         font-size: 24px;
         color: var(--cor-2);
@@ -93,7 +95,7 @@
       }
     }
     ul {
-      width: 65%;
+      width: 50%;
       margin-left: 30px;
       list-style-type: disc;
     }
