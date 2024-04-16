@@ -12,9 +12,9 @@
   font-size: 18px;
   font-weight: 600;
 
-  border: 3px #f5a11d solid;
+  border: 3px var(--cor-2) solid;
   border-radius: 20px;
-  background-color: #040d50;
+  background-color: var(--cor-1);
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.175);
   margin-bottom: 10px;
   img {
@@ -30,14 +30,14 @@
 .mid {
   display: flex;
   align-items: center;
-  background-color: #040d50;
+  background-color: var(--cor-1);
 
   border-radius: 18px;
 }
 .option {
   display: flex;
   flex-direction: column;
-  border: 4px solid #f5a11d;
+  border: 4px solid var(--cor-2);
   border-radius: 15px;
   span {
     font-weight: 600;
@@ -45,7 +45,7 @@
   h2 {
     padding: 7px 14px;
     text-align: justify;
-    color: #f5a11d;
+    color: var(--cor-2);
     margin: 5px 0;
   }
   .op-top {
@@ -54,10 +54,10 @@
     justify-content: space-between;
     margin-right: 8px;
     h1 {
-      border: 3px solid #f5a11d;
+      border: 3px solid var(--cor-2);
       border-radius: 12px;
       padding: 8px;
-      color: #f5a11d;
+      color: var(--cor-2);
       margin: 14px 0px 6px 12px;
       font-size: 24px;
       font-weight: 600;
@@ -78,15 +78,15 @@
       margin-bottom: 10px;
       h1 {
         font-size: 24px;
-        color: #f5a11d;
+        color: var(--cor-2);
         font-weight: 700;
         text-decoration: underline;
       }
       button {
-        border: 2px solid #f5a11d;
+        border: 2px solid var(--cor-2);
         border-radius: 8px;
         padding: 5px 8px;
-        background-color: #040d50;
+        background-color: var(--cor-1);
         font-size: 16px;
         color: #ffffff;
         font-weight: 600;
@@ -105,6 +105,6 @@
   }
 }
 .line {
-  border-bottom: 3px solid #f5a11d;
+  border-bottom: 3px solid var(--cor-2);
   margin-top: 6px;
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FipeService } from './services/fipe.service';
 
 @Component({
   selector: 'app-root',

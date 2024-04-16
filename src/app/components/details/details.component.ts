@@ -1,17 +1,65 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+  styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent {
-  @Output() out: EventEmitter<any> = new EventEmitter(); 
+export class DetailsComponent implements OnInit {
+  @Output() out: EventEmitter<any> = new EventEmitter();
   @Input() detalhes!: any;
-  @Input() value!: number;
+  @Input() value!: any;
+  value1!: string;
+  value2!: string;
+  value3!: string;
+  valorTotal!: string;
   constructor() {}
 
-  returnValue(opcao: number): string {
+  ngOnInit(): void {
+    const amountInReal = parseInt(this.value) / 100;
+
+    switch (this.detalhes.type) {
+      case 1:
+        this.value1 = this.returnCarroValue(1);
+        this.value2 = this.returnCarroValue(2);
+        this.value3 = this.returnCarroValue(3);
+        this.valorTotal = this.detalhes.Valor;
+        break;
+      case 2:
+        this.valorTotal = this.detalhes.Valor;
+        break;
+      case 3:
+        this.value1 = this.returnMotoValue(1);
+        this.value2 = this.returnMotoValue(2);
+        this.valorTotal = this.detalhes.Valor;
+        break;
+      case 4:
+        this.value1 = this.returnBikeValue();
+        this.valorTotal = amountInReal.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        });
+        this.value = this.value
+          .replace('R$', '')
+          .replace('.', '')
+          .replace(',', '');
+        break;
+      case 5:
+        this.value1 = this.returnCarretaValue();
+        this.valorTotal = amountInReal.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        });
+        this.value = this.value
+          .replace('R$', '')
+          .replace('.', '')
+          .replace(',', '');
+        break;
+    }
+    console.log('value', this.value);
+  }
+
+  returnCarroValue(opcao: number): string {
     if (this.value <= 15000) {
       if (opcao === 1) {
         return '79,99';
@@ -158,5 +206,276 @@ export class DetailsComponent {
       }
     }
     return '0,00';
+  }
+
+  returnMotoValue(opcao: number): string {
+    if (this.value <= 5000) {
+      if (opcao === 1) {
+        return '50.99';
+      } else if (opcao === 2) {
+        return '65.99';
+      }
+    } else if (this.value <= 7500) {
+      if (opcao === 1) {
+        return '70.99';
+      } else if (opcao === 2) {
+        return '85.99';
+      }
+    } else if (this.value <= 10000) {
+      if (opcao === 1) {
+        return '79.99';
+      } else if (opcao === 2) {
+        return '94.99';
+      }
+    } else if (this.value <= 12500) {
+      if (opcao === 1) {
+        return '91.99';
+      } else if (opcao === 2) {
+        return '106.99';
+      }
+    } else if (this.value <= 15000) {
+      if (opcao === 1) {
+        return '101.99';
+      } else if (opcao === 2) {
+        return '116.99';
+      }
+    } else if (this.value <= 17500) {
+      if (opcao === 1) {
+        return '117.99';
+      } else if (opcao === 2) {
+        return '132.99';
+      }
+    } else if (this.value <= 20000) {
+      if (opcao === 1) {
+        return '129.99';
+      } else if (opcao === 2) {
+        return '144.99';
+      }
+    } else if (this.value <= 25000) {
+      if (opcao === 1) {
+        return '157.45';
+      } else if (opcao === 2) {
+        return '172.45';
+      }
+    } else if (this.value <= 30000) {
+      if (opcao === 1) {
+        return '185.67';
+      } else if (opcao === 2) {
+        return '200.67';
+      }
+    } else if (this.value <= 40000) {
+      if (opcao === 1) {
+        return '213.89';
+      } else if (opcao === 2) {
+        return '228.89';
+      }
+    } else if (this.value <= 50000) {
+      if (opcao === 1) {
+        return '241.89';
+      } else if (opcao === 2) {
+        return '256.89';
+      }
+    } else if (this.value <= 60000) {
+      if (opcao === 1) {
+        return '279.54';
+      } else if (opcao === 2) {
+        return '294.54';
+      }
+    }
+    return '0';
+  }
+  returnUrlIcon(): any {
+    switch (this.detalhes.type) {
+      case 1:
+        return '../../../assets/car-side-svgrepo-com.svg';
+      case 2:
+        return '../../../assets/truck-svgrepo-com.svg';
+      case 3:
+        return '../../../assets/motorbike-svgrepo-com.svg';
+      case 4:
+        return '../../../assets/bicycle-svgrepo-com.svg';
+      case 5:
+        return '../../../assets/enclosed-trailer.svg';
+    }
+  }
+  returnCarretaValue(): string {
+    if (this.value <= 10000) {
+      return '151.20';
+    } else if (this.value <= 20000) {
+      return '163.80';
+    } else if (this.value <= 30000) {
+      return '176.40';
+    } else if (this.value <= 40000) {
+      return '189.00';
+    } else if (this.value <= 50000) {
+      return '201.60';
+    } else if (this.value <= 60000) {
+      return '214.20';
+    } else if (this.value <= 70000) {
+      return '226.80';
+    } else if (this.value <= 80000) {
+      return '239.40';
+    } else if (this.value <= 90000) {
+      return '252.00';
+    } else if (this.value <= 100000) {
+      return '264.69';
+    } else if (this.value <= 110000) {
+      return '277.20';
+    } else if (this.value <= 120000) {
+      return '289.80';
+    } else if (this.value <= 130000) {
+      return '302.40';
+    } else if (this.value <= 140000) {
+      return '315.00';
+    } else if (this.value <= 150000) {
+      return '327.60';
+    } else if (this.value <= 160000) {
+      return '340.20';
+    } else if (this.value <= 170000) {
+      return '352.80';
+    } else if (this.value <= 180000) {
+      return '365.40';
+    } else if (this.value <= 190000) {
+      return '378.00';
+    } else if (this.value <= 200000) {
+      return '390.60';
+    }
+    return '0;'
+  }
+  returnBikeValue(): string {
+    if (this.value <= 240000) {
+      return '22.00';
+    } else if (this.value <= 290000) {
+      return '24.00';
+    } else if (this.value <= 340000) {
+      return '24.50';
+    } else if (this.value <= 390000) {
+      return '26.50';
+    } else if (this.value <= 440000) {
+      return '30.00';
+    } else if (this.value <= 490000) {
+      return '35.00';
+    } else if (this.value <= 540000) {
+      return '37.00';
+    } else if (this.value <= 590000) {
+      return '40.00';
+    } else if (this.value <= 640000) {
+      return '42.00';
+    } else if (this.value <= 690000) {
+      return '44.00';
+    } else if (this.value <= 740000) {
+      return '45.50';
+    } else if (this.value <= 790000) {
+      return '47.00';
+    } else if (this.value <= 840000) {
+      return '49.00';
+    } else if (this.value <= 890000) {
+      return '51.00';
+    } else if (this.value <= 940000) {
+      return '52.50';
+    } else if (this.value <= 990000) {
+      return '54.00';
+    } else if (this.value <= 1040000) {
+      return '55.50';
+    } else if (this.value <= 1090000) {
+      return '57.00';
+    } else if (this.value <= 1140000) {
+      return '58.50';
+    } else if (this.value <= 1190000) {
+      return '59.40';
+    } else if (this.value <= 1240000) {
+      return '60.20';
+    } else if (this.value <= 1290000) {
+      return '61.00';
+    } else if (this.value <= 1340000) {
+      return '61.90';
+    } else if (this.value <= 1390000) {
+      return '62.60';
+    } else if (this.value <= 1440000) {
+      return '63.15';
+    } else if (this.value <= 1490000) {
+      return '64.65';
+    } else if (this.value <= 1540000) {
+      return '65.00';
+    } else if (this.value <= 1590000) {
+      return '65.50';
+    } else if (this.value <= 1640000) {
+      return '66.00';
+    } else if (this.value <= 1690000) {
+      return '68.00';
+    } else if (this.value <= 1740000) {
+      return '69.50';
+    } else if (this.value <= 1790000) {
+      return '71.00';
+    } else if (this.value <= 1840000) {
+      return '73.00';
+    } else if (this.value <= 1890000) {
+      return '74.50';
+    } else if (this.value <= 1940000) {
+      return '76.00';
+    } else if (this.value <= 1990000) {
+      return '78.00';
+    } else if (this.value <= 2040000) {
+      return '79.50';
+    } else if (this.value <= 2090000) {
+      return '81.00';
+    } else if (this.value <= 2140000) {
+      return '83.50';
+    } else if (this.value <= 2190000) {
+      return '85.00';
+    } else if (this.value <= 2240000) {
+      return '87.00';
+    } else if (this.value <= 2290000) {
+      return '90.00';
+    } else if (this.value <= 2340000) {
+      return '92.00';
+    } else if (this.value <= 2390000) {
+      return '93.50';
+    } else if (this.value <= 2440000) {
+      return '95.00';
+    } else if (this.value <= 2490000) {
+      return '97.00';
+    } else if (this.value <= 2540000) {
+      return '98.60';
+    } else if (this.value <= 2590000) {
+      return '99.90';
+    } else if (this.value <= 2640000) {
+      return '102.00';
+    } else if (this.value <= 2690000) {
+      return '103.50';
+    } else if (this.value <= 2740000) {
+      return '105.00';
+    } else if (this.value <= 2790000) {
+      return '107.00';
+    } else if (this.value <= 2840000) {
+      return '109.00';
+    } else if (this.value <= 2890000) {
+      return '112.00';
+    } else if (this.value <= 2950000) {
+      return '115.00';
+    } else if (this.value <= 3000000) {
+      return '118.00';
+    } else if (this.value <= 4000000) {
+      return '213.89';
+    } else if (this.value <= 5000000) {
+      return '241.89';
+    }
+    return '0'
+}
+
+  get carro(): boolean {
+    return this.detalhes.type === 1;
+  }
+  get caminhao(): boolean {
+    return this.detalhes.type === 2;
+  }
+  get moto(): boolean {
+    return this.detalhes.type === 3;
+  }
+  get bike(): boolean {
+    return this.detalhes.type === 4;
+  }
+  get carreta(): boolean {
+    return this.detalhes.type === 5;
   }
 }

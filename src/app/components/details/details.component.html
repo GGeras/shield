@@ -1,25 +1,34 @@
 <div class="container w-100">
   <div class="top w-100">
     <div>
-        <img src="../../../assets/car-side-svgrepo-com.svg" alt="icon" />
+      <img [src]="returnUrlIcon()" alt="icon" width="64px" />
+      <ng-container *ngIf="!carreta && !bike">
         {{ detalhes.Modelo }}
-        <div></div>
+      </ng-container>
+      <ng-container *ngIf="carreta">Proteção de carreta</ng-container>
+      <ng-container *ngIf="bike">Proteção de bicicleta</ng-container>
+      <div></div>
     </div>
   </div>
 
   <div class="top w-100">
     <div class="w-100">
-        <img src="../../../assets/dollar-sign-svgrepo-com.svg" alt="icon" />
-        <h2>
-            {{ detalhes.Valor }}
-        </h2>
-        <img src="../../../assets/return.svg" alt="icon" (click)="out.emit(null)" />
+      <img src="../../../assets/dollar-sign-svgrepo-com.svg" alt="icon" />
+      <h2>
+        {{ valorTotal }}
+      </h2>
+      <img
+        src="../../../assets/return.svg"
+        alt="icon"
+        (click)="out.emit(null)"
+      />
     </div>
   </div>
   <div class="mid w-100">
     <div class="option w-100">
       <div class="op-top w-100">
-        <h1>BÁSICO</h1>
+        <h1 *ngIf="moto">MÉDIO</h1>
+        <h1 *ngIf="carro">BÁSICO</h1>
         <div>
           <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
           <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
@@ -28,18 +37,33 @@
       </div>
       <div class="op-desc w-100">
         <ul>
-          <li>Assistência 24h</li>
-          <li>Guincho 600km (300 ida e 300 volta)</li>
-          <li>Guincho Ilimitado - Acidente</li>
-          <li>Recarga bateria</li>
-          <li>Pane Seca</li>
-          <li>Hospedagem</li>
-          <li>Troca de pneu</li>
-          <li>Chaveiro</li>
-          <li>Motorista Substituto</li>
-          <li>Retorno ao Domicílio</li>
-          <li>Uber/Pop</li>
-          <li>Guarda Veículo</li>
+          <ng-container *ngIf="carro">
+            <li>Assistência 24h</li>
+            <li>Guincho 600km (300 ida e 300 volta)</li>
+            <li>Guincho Ilimitado - Acidente</li>
+            <li>Recarga bateria</li>
+            <li>Pane Seca</li>
+            <li>Hospedagem</li>
+            <li>Troca de pneu</li>
+            <li>Chaveiro</li>
+            <li>Motorista Substituto</li>
+            <li>Retorno ao Domicílio</li>
+            <li>Uber/Pop</li>
+            <li>Guarda Veículo</li>
+          </ng-container>
+          <ng-container *ngIf="moto">
+            <li>Roubo e furto</li>
+            <li>Incêndio</li>
+            <li>Fenômenos Naturais</li>
+            <li>Colisão</li>
+            <li>Assistência 24h</li>
+            <li>Guincho 600km (300 ida e 300 volta)</li>
+            <li>Guincho ilimitado - Acidente</li>
+            <li>Pane Seca</li>
+            <li>Troca de pneu</li>
+            <li>Retorno ao Domicílio</li>
+            <li>Uber/Pop</li>
+          </ng-container>
         </ul>
         <div class="action">
           <img
@@ -48,13 +72,14 @@
             width="95px"
             style="margin-bottom: 45px"
           />
-          <h1>R$ {{ returnValue(1) }}</h1>
+          <h1>R$ {{ value1 }}</h1>
           <button>Selecionar</button>
         </div>
       </div>
       <div class="line"></div>
       <div class="op-top w-100">
-        <h1>MÉDIO</h1>
+        <h1 *ngIf="carro">MÉDIO</h1>
+        <h1 *ngIf="moto">COMPLETO</h1>
         <div>
           <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
           <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
@@ -69,34 +94,56 @@
           <li>Danos a Terceiros</li>
         </ul>
         <div class="action">
-          <h1>R$ {{ returnValue(2) }}</h1>
+          <h1>R$ {{ value2 }}</h1>
           <button>Selecionar</button>
         </div>
       </div>
       <div class="line"></div>
-      <div class="op-top w-100">
-        <h1>COMPLETO</h1>
-        <div>
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
+      <ng-container *ngIf="carro">
+        <div class="op-top w-100">
+          <h1>COMPLETO</h1>
+          <div>
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+            <img
+              src="../../../assets/star-svgrepo-com.svg"
+              alt=""
+              width="28px"
+            />
+          </div>
         </div>
-      </div>
-      <h2>Contempla <span>tudo do Plano Médio</span> com adicional de :</h2>
+        <h2>Contempla <span>tudo do Plano Médio</span> com adicional de :</h2>
 
-      <div class="op-desc w-100">
-        <ul>
-          <li>Carro reserva (15 dias)</li>
-          <li>Proteção de Vidros</li>
-          <li>Coparticipação reduzida</li>
-        </ul>
-        <div class="action">
-          <h1>R$ {{ returnValue(3) }}</h1>
-          <button>Selecionar</button>
+        <div class="op-desc w-100">
+          <ul>
+            <li>Carro reserva (15 dias)</li>
+            <li>Proteção de Vidros</li>
+            <li>Coparticipação reduzida</li>
+          </ul>
+          <div class="action">
+            <h1>R$ {{ value3 }}</h1>
+            <button>Selecionar</button>
+          </div>
         </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@
       (click)="toggleAccordion(accordion.id)"
     >
       <img [src]="returnUrlIcon(i)" alt="icon" class="accordionIconLeft" />
-      <div class="accordionTitle">
+      <div class="accordionTitle" [ngStyle]="{color : accordion.id === this.accordionExpanded || accordion.id  === this.accordionHovered ? '#FF9900' : ''}">
         {{ accordion.title | uppercase }}
       </div>
       <img
@@ -25,7 +25,7 @@
     <div
       class="accordionContent"
       [ngClass]="{ 'accordionContent--expanded': accordionExpanded === accordion.id }"
-      [ngStyle]="{ height: this.accordionExpanded === 1 || this.accordionExpanded === 2 || this.accordionExpanded === 3 ? '200px' : '75px' }"
+      [ngStyle]="{ height: this.accordionExpanded === 1 || this.accordionExpanded === 2 || this.accordionExpanded === 3 ? '200px' : '80px' }"
     >
     <ng-container *ngIf="this.accordionExpanded === 1 || this.accordionExpanded === 2 || this.accordionExpanded === 3 ; else valueBox" >
       <label for="marcaSelect{{ accordion.id }}" class="accordionLabel">Marca:</label>
@@ -79,10 +79,20 @@
       </div>
     </ng-container>
     <ng-template #valueBox>
-      <label class="accordionLabel">Valor:</label>
-      <div class="selectContainer">
-        <input class="accordionSelect" formatoNumerico [(ngModel)]="valueNumber">
+      <div>
+        <label class="accordionLabel">Valor:</label>
+        <div class="selectContainer">
+        <input class="accordionSelect" (input)="change()" formatoNumerico [(ngModel)]="valueNumber">
+        <button (click)="consultar()" [disabled]="isDisabled" [ngStyle]="{ opacity : isDisabled ? '0.5' : '1' }" >Consultar</button>
       </div>
+      <div class="w-95 input-info" *ngIf="this.accordionExpanded === 4">
+        Min: R$ 1.200,00 - Max: R$ 30.000,00
+      </div>
+      <div class="w-95 input-info" *ngIf="this.accordionExpanded === 5">
+        Min: R$ 10.000,00 - Max: R$ 200.000,00
+      </div>
+    </div>
+
     </ng-template>
     </div>
   </div>

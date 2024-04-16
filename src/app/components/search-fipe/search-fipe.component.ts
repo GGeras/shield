@@ -8,7 +8,7 @@ interface Accordion {
 @Component({
   selector: 'app-search-fipe',
   templateUrl: './search-fipe.component.html',
-  styleUrls: ['./search-fipe.component.scss']
+  styleUrls: ['./search-fipe.component.scss'],
 })
 export class SearchFipeComponent implements OnInit {
   @Output() setDetails: EventEmitter<any> = new EventEmitter();
@@ -17,8 +17,9 @@ export class SearchFipeComponent implements OnInit {
   modelos!: any[];
   anos!: any[];
   detalhes: any;
-  valueNumber: any = "R$";
+  valueNumber: any = 'R$';
   value!: number;
+  isDisabled: boolean = true;
   url: string = 'https://parallelum.com.br/fipe/api/v1/carros/marcas';
   accordionExpanded: number | null = null;
   accordionHovered: number | null = null;
@@ -32,13 +33,12 @@ export class SearchFipeComponent implements OnInit {
     { id: 4, title: 'Consulta de Bicicletas' },
     { id: 5, title: 'Consulta de Carretas' },
   ];
-  
+
   constructor(private fipeService: FipeService) {}
 
   ngOnInit(): void {
     this.buscarMarcas();
   }
-
 
   hoverAccordionHeader(hover: boolean, accordionId: number) {
     if (hover) {
@@ -48,9 +48,6 @@ export class SearchFipeComponent implements OnInit {
     }
   }
 
-teste(): void{
-  console.log(this.valueNumber)
-}
 
   toggleAccordion(accordionId: number): void {
     switch (accordionId) {
@@ -66,6 +63,7 @@ teste(): void{
     }
     this.clearValues();
     this.buscarMarcas();
+    this.valueNumber = 'R$';
     if (this.accordionExpanded === accordionId) {
       this.accordionExpanded = null;
     } else {
@@ -85,18 +83,18 @@ teste(): void{
     });
   }
 
-  returnUrlIcon(id: number): any{ 
+  returnUrlIcon(id: number): any {
     switch (id) {
       case 0:
-        return "../assets/car-side-svgrepo-com.svg"
+        return '../assets/car-side-svgrepo-com.svg';
       case 1:
-        return "../assets/truck-svgrepo-com.svg"
+        return '../assets/truck-svgrepo-com.svg';
       case 2:
-        return "../assets/motorbike-svgrepo-com.svg"
+        return '../assets/motorbike-svgrepo-com.svg';
       case 3:
-        return "../assets/bicycle-svgrepo-com.svg"
+        return '../assets/bicycle-svgrepo-com.svg';
       case 4:
-        return "../assets/enclosed-trailer.svg"
+        return '../assets/enclosed-trailer.svg';
     }
   }
 
@@ -149,6 +147,17 @@ teste(): void{
             .replace('.', '')
             .replace(',', '.');
           this.value = parseFloat(numeroSemSimbolo);
+          switch (this.accordionExpanded) {
+            case 1:
+              this.detalhes.type = 1;
+              break;
+            case 2:
+              this.detalhes.type = 2;
+              break;
+            case 3:
+              this.detalhes.type = 3;
+              break;
+          }
           this.setValue.emit(this.value);
           this.setDetails.emit(this.detalhes);
           console.log(this.value);
@@ -171,4 +180,36 @@ teste(): void{
   atualizarDetalhes(event: any) {
     console.log(event);
   }
+  consultar() {
+    let newValue = this.valueNumber
+      .replace('R$', '')
+      .replace('.', '')
+      .replace(',', '');
+    console.log('newValue', newValue);
+    this.setValue.emit(newValue);
+
+    this.setDetails.emit({ type: this.accordionExpanded });
+  }
+
+  change(): void {
+    console.log(this.valueNumber);
+    let value = this.valueNumber.replace('R$', '').replace('.', '').replace(',', '');
+    console.log('value', value);
+    if (this.accordionExpanded === 4) {
+      if (value >= 120000 && value <= 3000000) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
+    } else if (this.accordionExpanded === 5) {
+      if (value >= 1000000 && value <= 20000000) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
+    } else {
+      this.isDisabled = false;
+    }
+  }
+
 }
