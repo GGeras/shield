@@ -31,6 +31,12 @@
   padding: 20px 0;
 }
 
+/* Modifier */
+.accordionContent--expanded {
+  display: block;
+}
+
+/* Elements */
 .accordionIconLeft {
   margin-left: 5px;
 }

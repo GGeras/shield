@@ -1,64 +1,99 @@
 <div class="accordionBox">
-  <div class="accordionContainer" *ngFor="let accordion of accordions; let i = index">
-    <div class="accordionHeader"
+  <div
+    class="accordionContainer"
+    *ngFor="let accordion of accordions; let i = index"
+  >
+    <div
+      class="accordionHeader"
       (mouseenter)="hoverAccordionHeader(true, accordion.id)"
       (mouseleave)="hoverAccordionHeader(false, accordion.id)"
-      (click)="toggleAccordion(accordion.id)">
+      (click)="toggleAccordion(accordion.id)"
+    >
       <img [src]="returnUrlIcon(i)" alt="icon" class="accordionIconLeft" />
-      <div class="accordionTitle" [ngStyle]="{ color: isAccordionActive(accordion.id) ? '#FF9900' : '' }">
+      <div class="accordionTitle" [ngStyle]="{color : accordion.id === this.accordionExpanded || accordion.id  === this.accordionHovered ? '#FF9900' : ''}">
         {{ accordion.title | uppercase }}
       </div>
-      <img [src]="returnIcon(accordion.id)" alt=""
-        [style.transform]="accordionExpanded === accordion.id ? 'rotate(180deg)' : ''" class="accordionArrow" />
+      <img
+        [src]="returnIcon(accordion.id)"
+        alt=""
+        [style.transform]="
+          accordionExpanded === accordion.id ? 'rotate(180deg)' : ''
+        "
+        class="accordionArrow"
+      />
     </div>
-    <div class="accordionContent" *ngIf="isAccordionActive(accordion.id)">
-      <ng-container *ngIf="isAccordionWithSelects(accordion.id); else valueBox">
-        <label for="marcaSelect{{ accordion.id }}" class="accordionLabel">Marca:</label>
+    <div
+      class="accordionContent"
+      [ngClass]="{ 'accordionContent--expanded': accordionExpanded === accordion.id }"
+      [ngStyle]="{ height: this.accordionExpanded === 1 || this.accordionExpanded === 2 || this.accordionExpanded === 3 ? '200px' : '80px' }"
+    >
+    <ng-container *ngIf="this.accordionExpanded === 1 || this.accordionExpanded === 2 || this.accordionExpanded === 3 ; else valueBox" >
+      <label for="marcaSelect{{ accordion.id }}" class="accordionLabel">Marca:</label>
+      <div class="selectContainer">
+        <select
+          id="marcaSelect{{ accordion.id }}"
+          (change)="buscarModelos($event, accordion.id)"
+          class="accordionSelect"
+        >
+          <option value="">Selecione uma marca</option>
+          <option *ngFor="let marca of marcas" [value]="marca.codigo">
+            {{ marca.nome }}
+          </option>
+        </select>
+      </div>
+
+      <label
+        *ngIf="modelos && modelos.length > 0"
+        for="modeloSelect{{ accordion.id }}"
+        class="accordionLabel"
+      >
+        Modelo:
+      </label>
+      <div class="selectContainer" *ngIf="modelos && modelos.length > 0">
+        <select
+          id="modeloSelect{{ accordion.id }}"
+          (change)="buscarAnos($event)"
+          class="accordionSelect"
+        >
+          <option value="">Selecione um modelo</option>
+          <option *ngFor="let modelo of modelos" [value]="modelo.codigo">
+            {{ modelo.nome }}
+          </option>
+        </select>
+      </div>
+
+      <label *ngIf="anos && anos.length > 0" for="anoSelect{{ accordion.id }}" class="accordionLabel">
+        Ano:
+      </label>
+      <div class="selectContainer" *ngIf="anos && anos.length > 0">
+        <select
+          id="anoSelect{{ accordion.id }}"
+          (change)="buscarDetalhes($event)"
+          class="accordionSelect"
+        >
+          <option value="">Selecione um ano</option>
+          <option *ngFor="let ano of anos" [value]="ano.codigo">
+            {{ ano.nome }}
+          </option>
+        </select>
+      </div>
+    </ng-container>
+    <ng-template #valueBox>
+      <div>
+        <label class="accordionLabel">Valor:</label>
         <div class="selectContainer">
-          <select id="marcaSelect{{ accordion.id }}" (change)="buscarModelos($event, accordion.id)"
-            class="accordionSelect">
-            <option value="">Selecione uma marca</option>
-            <option *ngFor="let marca of marcas" [value]="marca.codigo">{{ marca.nome }}</option>
-          </select>
-        </div>
+        <input class="accordionSelect" (input)="change()" formatoNumerico [(ngModel)]="valueNumber">
+        <button (click)="consultar()" [disabled]="isDisabled" [ngStyle]="{ opacity : isDisabled ? '0.5' : '1' }" >Consultar</button>
+      </div>
+      <div class="w-95 input-info" *ngIf="this.accordionExpanded === 4">
+        Min: R$ 1.200,00 - Max: R$ 30.000,00
+      </div>
+      <div class="w-95 input-info" *ngIf="this.accordionExpanded === 5">
+        Min: R$ 10.000,00 - Max: R$ 200.000,00
+      </div>
+    </div>
 
-        <label *ngIf="modelos && modelos.length > 0" for="modeloSelect{{ accordion.id }}" class="accordionLabel">
-          Modelo:
-        </label>
-        <div class="selectContainer" *ngIf="modelos && modelos.length > 0">
-          <select id="modeloSelect{{ accordion.id }}" (change)="buscarAnos($event)" class="accordionSelect">
-            <option value="">Selecione um modelo</option>
-            <option *ngFor="let modelo of modelos" [value]="modelo.codigo">{{ modelo.nome }}</option>
-          </select>
-        </div>
-
-        <label *ngIf="anos && anos.length > 0" for="anoSelect{{ accordion.id }}" class="accordionLabel">
-          Ano:
-        </label>
-        <div class="selectContainer" *ngIf="anos && anos.length > 0">
-          <select id="anoSelect{{ accordion.id }}" (change)="buscarDetalhes($event)" class="accordionSelect">
-            <option value="">Selecione um ano</option>
-            <option *ngFor="let ano of anos" [value]="ano.codigo">{{ ano.nome }}</option>
-          </select>
-        </div>
-      </ng-container>
-      <ng-template #valueBox>
-        <div>
-          <label class="accordionLabel">Valor:</label>
-          <div class="selectContainer">
-            <input class="accordionSelect" (input)="change()" formatoNumerico [(ngModel)]="valueNumber">
-            <button (click)="consultar()" [disabled]="isDisabled" [ngStyle]="{ opacity: isDisabled ? '0.5' : '1' }">
-              Consultar
-            </button>
-          </div>
-          <div class="w-95 input-info" *ngIf="accordion.id === 4">
-            Min: R$ 1.200,00 - Max: R$ 30.000,00
-          </div>
-          <div class="w-95 input-info" *ngIf="accordion.id === 5">
-            Min: R$ 10.000,00 - Max: R$ 200.000,00
-          </div>
-        </div>
-      </ng-template>
+    </ng-template>
     </div>
   </div>
 </div>
