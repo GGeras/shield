@@ -211,5 +211,11 @@ export class SearchFipeComponent implements OnInit {
       this.isDisabled = false;
     }
   }
+  isAccordionActive(id: number): boolean {
+    return this.accordionExpanded === id;
+  }
 
+  isAccordionWithSelects(id: number): boolean {
+    return id === 1 || id === 2 || id === 3;
+  }
 }
