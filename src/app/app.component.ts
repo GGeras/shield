@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
   detalhes: any;
   value: any;
+  app: any[] = [
+    '2 via de boleto', 'Consulta', 'Benefícios', 'Fácil e prático'
+  ];
   cards: any[] = [
     {
       titulo: 'Proteção contra furto e roubo',
@@ -37,16 +40,4 @@ export class AppComponent {
   ];
   constructor() {}
 
-  // construirLinkWhatsApp(): string {
-  //   const mensagem = encodeURIComponent(
-  //     `Olá! Tenho interesse em fazer a adesão da proteção do veículo:\n\nMarca: ${
-  //       this.detalhes.Marca
-  //     }\nModelo: ${this.detalhes.Modelo}\nAno Modelo: ${
-  //       this.detalhes.AnoModelo
-  //     }\nValor: ${this.detalhes.Valor}\nCombustível: ${
-  //       this.detalhes.Combustivel
-  //     }\nEscolhi o combo COMPLETO!\n No valor de R$ 2323232`
-  //   );
-  //   return `https://wa.me/5534984435669?text=${mensagem}`;
-  // }
 }

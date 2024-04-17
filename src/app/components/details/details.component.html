@@ -13,7 +13,7 @@
 
   <div class="top w-100">
     <div class="w-100">
-      <img src="../../../assets/dollar-sign-svgrepo-com.svg" alt="icon" />
+      <img src="../../../assets/dollar-sign.svg" alt="icon" />
       <h2>
         {{ valorTotal }}
       </h2>
@@ -30,9 +30,9 @@
         <h1 *ngIf="moto || caminhao">MÉDIO</h1>
         <h1 *ngIf="carro || bike || carreta">BÁSICO</h1>
         <div>
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
-          <img src="../../../assets/star-svgrepo-com.svg" alt="" width="28px" />
+          <img src="../../../assets/star.svg" alt="" width="28px" />
+          <img src="../../../assets/star.svg" alt="" width="28px" />
+          <img src="../../../assets/star.svg" alt="" width="28px" />
         </div>
       </div>
       <div class="op-desc w-100">
@@ -81,7 +81,7 @@
             style="margin-bottom: 45px"
           />
           <h1>R$ {{ value1 }}</h1>
-          <button>Selecionar</button>
+          <button (click)="abrirWhatsApp(1)">Selecionar</button>
         </div>
       </div>
       <ng-container *ngIf="carro || moto || caminhao">
@@ -91,22 +91,22 @@
           <h1 *ngIf="moto || caminhao">COMPLETO</h1>
           <div>
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
@@ -120,7 +120,7 @@
           </ul>
           <div class="action">
             <h1>R$ {{ value2 }}</h1>
-            <button>Selecionar</button>
+            <button (click)="abrirWhatsApp(2)">Selecionar</button>
           </div>
         </div>
       </ng-container>
@@ -130,27 +130,27 @@
           <h1>COMPLETO</h1>
           <div>
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
             <img
-              src="../../../assets/star-svgrepo-com.svg"
+              src="../../../assets/star.svg"
               alt=""
               width="28px"
             />
@@ -166,7 +166,7 @@
           </ul>
           <div class="action">
             <h1>R$ {{ value3 }}</h1>
-            <button>Selecionar</button>
+            <button (click)="abrirWhatsApp(3)">Selecionar</button>
           </div>
         </div>
       </ng-container>

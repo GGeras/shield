@@ -1,6 +1,6 @@
-/* Base styles */
 .accordionBox {
   width: 100%;
+  // max-width: 550px;
   height: auto;
 }
 
@@ -12,29 +12,23 @@
 .accordionHeader {
   display: flex;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 18px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(90deg, var(--cor-1) 30%, #020835 100%);
-  border: 2px solid var(--cor-2);
+  border: 1px solid var(--cor-2);
   box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.25);
   color: white;
 }
 
 .accordionContent {
-  display: none;
   width: 100%;
   height: 200px;
   background-color: var(--cor-1);
-  border: 2px solid var(--cor-2);
+  border: 1px solid var(--cor-2);
   padding: 20px 0;
-}
-
-/* Modifier */
-.accordionContent--expanded {
-  display: block;
 }
 
 /* Elements */
@@ -76,16 +70,13 @@
   }
 }
 .input-info{
-
   padding: 0 10px;
   margin-top: 5px;
   font-size: 16px;
   font-weight: 500;
   color: var(--cor-2);
-
 }
 .accordionSelect {
-  width: 50%;
   padding: 4px 8px;
   color: white;
   background-color: var(--cor-1);
