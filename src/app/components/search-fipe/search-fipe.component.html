@@ -1,3 +1,4 @@
+<app-modal *ngIf="showModal" [msg]="msg" [showModal]="showModal" (showModalChange)="showModal = $event"></app-modal>
 <div class="accordionBox">
   <div class="accordionContainer" *ngFor="let accordion of accordions; let i = index">
     <div class="accordionHeader"

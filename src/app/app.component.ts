@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
   detalhes: any;
   value: any;
+  app: any[] = [
+    '2 via de boleto', 'Consulta', 'Benefícios', 'Fácil e prático'
+  ];
   cards: any[] = [
     {
       titulo: 'Proteção contra furto e roubo',

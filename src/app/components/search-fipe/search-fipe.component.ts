@@ -20,6 +20,8 @@ export class SearchFipeComponent implements OnInit {
   valueNumber: any = 'R$';
   value!: number;
   isDisabled: boolean = true;
+  msg: string = '';
+  showModal: boolean = false;
   url: string = 'https://parallelum.com.br/fipe/api/v1/carros/marcas';
   accordionExpanded: number | null = null;
   accordionHovered: number | null = null;
@@ -168,11 +170,17 @@ export class SearchFipeComponent implements OnInit {
 
           if(this.accordionExpanded === 1 && this.value >= 200001){
             console.log('carro passou do limite');
+            this.msg = "O valor ultrapassa o limite de R$ 200.000,00. Por favor, altere o veiculo e tente novamente.";
+            this.showModal = true;
             return;
           } else if (this.accordionExpanded === 2 && this.value >= 200001){
+            this.msg = "O valor ultrapassa o limite de R$ 200.000,00. Por favor, altere o veiculo e tente novamente.";
+            this.showModal = true;
             console.log('caminhão passou do limite');
             return;
           } else if (this.accordionExpanded === 3 && this.value >= 60001){
+            this.msg = "O valor ultrapassa o limite de R$ 60.000,00. Por favor, altere o veiculo e tente novamente.";
+            this.showModal = true;
             console.log('moto passou do limite');
             return;
           }

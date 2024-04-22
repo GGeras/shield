@@ -56,21 +56,9 @@
           </h2>
         </div>
         <div class="container-check w-90">
-          <div class="check">
+          <div class="check" *ngFor="let item of app">
             <img src="../assets/check.png" alt="" width="60px" />
-            <h2>2 via de boleto</h2>
-          </div>
-          <div class="check">
-            <img src="../assets/check.png" alt="" width="60px" />
-            <h2>Consulta</h2>
-          </div>
-          <div class="check">
-            <img src="../assets/check.png" alt="" width="60px" />
-            <h2>Benefícios</h2>
-          </div>
-          <div class="check">
-            <img src="../assets/check.png" alt="" width="60px" />
-            <h2>Fácil e prático</h2>
+            <h2>{{item}}</h2>
           </div>
         </div>
         <div class="app-download w-90">
@@ -109,6 +97,4 @@
       SHIELD DE VEICULOS
     </div>
   </div>
-
-
 </div>

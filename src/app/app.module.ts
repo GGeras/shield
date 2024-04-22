@@ -7,13 +7,15 @@ import { DetailsComponent } from './components/details/details.component';
 import { SearchFipeComponent } from './components/search-fipe/search-fipe.component';
 import { FormatoNumericoDirective } from './directive/directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DetailsComponent,
     FormatoNumericoDirective,
-    SearchFipeComponent
+    SearchFipeComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
