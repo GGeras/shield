@@ -81,7 +81,7 @@
             style="margin-bottom: 45px"
           />
           <h1>R$ {{ value1 }}</h1>
-          <button>Selecionar</button>
+          <button (click)="abrirWhatsApp()">Selecionar</button>
         </div>
       </div>
       <ng-container *ngIf="carro || moto || caminhao">
@@ -120,7 +120,7 @@
           </ul>
           <div class="action">
             <h1>R$ {{ value2 }}</h1>
-            <button>Selecionar</button>
+            <button (click)="abrirWhatsApp()">Selecionar</button>
           </div>
         </div>
       </ng-container>
@@ -166,7 +166,7 @@
           </ul>
           <div class="action">
             <h1>R$ {{ value3 }}</h1>
-            <button>Selecionar</button>
+            <button (click)="abrirWhatsApp()">Selecionar</button>
           </div>
         </div>
       </ng-container>

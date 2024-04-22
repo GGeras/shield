@@ -48,7 +48,6 @@ export class SearchFipeComponent implements OnInit {
     }
   }
 
-
   toggleAccordion(accordionId: number): void {
     switch (accordionId) {
       case 1:
@@ -69,6 +68,24 @@ export class SearchFipeComponent implements OnInit {
     } else {
       this.accordionExpanded = accordionId;
     }
+  }
+  isValueBoxVisible(accordionId: number): boolean {
+    return accordionId === 4 || accordionId === 5;
+  }
+
+  isAccordionActive(accordionId: number): boolean {
+    return (
+      accordionId === this.accordionExpanded ||
+      accordionId === this.accordionHovered
+    );
+  }
+
+  getAccordionHeight(): string {
+    return this.accordionExpanded === 1 ||
+      this.accordionExpanded === 2 ||
+      this.accordionExpanded === 3
+      ? '200px'
+      : '80px';
   }
 
   clearValues(): void {
@@ -142,25 +159,27 @@ export class SearchFipeComponent implements OnInit {
         )
         .subscribe((data) => {
           this.detalhes = data;
-          console.log('dataaa', data);
+
           const numeroSemSimbolo = data.Valor.replace('R$', '')
             .replace('.', '')
             .replace(',', '.');
           this.value = parseFloat(numeroSemSimbolo);
-          switch (this.accordionExpanded) {
-            case 1:
-              this.detalhes.type = 1;
-              break;
-            case 2:
-              this.detalhes.type = 2;
-              break;
-            case 3:
-              this.detalhes.type = 3;
-              break;
+          console.log('this.value', this.value);
+
+          if(this.accordionExpanded === 1 && this.value >= 200001){
+            console.log('carro passou do limite');
+            return;
+          } else if (this.accordionExpanded === 2 && this.value >= 200001){
+            console.log('caminhão passou do limite');
+            return;
+          } else if (this.accordionExpanded === 3 && this.value >= 60001){
+            console.log('moto passou do limite');
+            return;
           }
+
+          this.detalhes.type = this.accordionExpanded;
           this.setValue.emit(this.value);
           this.setDetails.emit(this.detalhes);
-          console.log(this.value);
         });
     } else {
       this.detalhes = null;
@@ -185,15 +204,16 @@ export class SearchFipeComponent implements OnInit {
       .replace('R$', '')
       .replace('.', '')
       .replace(',', '');
-    console.log('newValue', newValue);
     this.setValue.emit(newValue);
-
     this.setDetails.emit({ type: this.accordionExpanded });
   }
 
   change(): void {
     console.log(this.valueNumber);
-    let value = this.valueNumber.replace('R$', '').replace('.', '').replace(',', '');
+    let value = this.valueNumber
+      .replace('R$', '')
+      .replace('.', '')
+      .replace(',', '');
     console.log('value', value);
     if (this.accordionExpanded === 4) {
       if (value >= 120000 && value <= 3000000) {
@@ -210,12 +230,5 @@ export class SearchFipeComponent implements OnInit {
     } else {
       this.isDisabled = false;
     }
-  }
-  isAccordionActive(id: number): boolean {
-    return this.accordionExpanded === id;
-  }
-
-  isAccordionWithSelects(id: number): boolean {
-    return id === 1 || id === 2 || id === 3;
   }
 }

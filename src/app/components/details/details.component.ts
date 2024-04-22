@@ -61,6 +61,29 @@ export class DetailsComponent implements OnInit {
     console.log('value', this.value);
   }
 
+
+  abrirWhatsApp() {
+    const linkWhatsApp = this.construirLinkWhatsApp();
+    window.open(linkWhatsApp, '_blank');
+  }
+
+  construirLinkWhatsApp(): string {
+    const mensagemPartes = [
+      "Olá! 🚗✨ Estou super animado em saber que você está interessado em proteger seu veículo! 😊:",
+      `- Marca: ${this.detalhes.Marca}`,
+      `- Modelo: ${this.detalhes.Modelo}`,
+      `- Ano Modelo: ${this.detalhes.AnoModelo}`,
+      `- Valor: ${this.detalhes.Valor}`,
+      `- Combustível: ${this.detalhes.Combustivel}`,
+      "Escolhi o combo COMPLETO!",
+      `No valor de ${this.valorTotal}`
+    ];
+  
+    const mensagemCodificada = mensagemPartes.map(part => encodeURIComponent(part)).join('%0A');
+    
+    return `https://wa.me/5534999475690?text=${mensagemCodificada}`;
+  }
+
   returnCarroValue(opcao: number): string {
     if (this.value <= 15000) {
       if (opcao === 1) {
@@ -198,13 +221,93 @@ export class DetailsComponent implements OnInit {
       } else if (opcao === 3) {
         return '374,88';
       }
-    } else {
+    } else if (this.value <= 100000) {
       if (opcao === 1) {
         return '376,14';
       } else if (opcao === 2) {
         return '391,14';
       } else if (opcao === 3) {
         return '416,14';
+      }
+    } else if (this.value <= 110000) {
+      if (opcao === 1) {
+        return '408,15';
+      } else if (opcao === 2) {
+        return '423,15';
+      } else if (opcao === 3) {
+        return '448,05';
+      }
+    } else if (this.value <= 120000) {
+      if (opcao === 1) {
+        return '455,95';
+      } else if (opcao === 2) {
+        return '470,95';
+      } else if (opcao === 3) {
+        return '495,85';
+      }
+    } else if (this.value <= 130000) {
+      if (opcao === 1) {
+        return '499,76';
+      } else if (opcao === 2) {
+        return '514,76';
+      } else if (opcao === 3) {
+        return '539,66';
+      }
+    } else if (this.value <= 140000) {
+      if (opcao === 1) {
+        return '539,25';
+      } else if (opcao === 2) {
+        return '554,25';
+      } else if (opcao === 3) {
+        return '579,15';
+      }
+    } else if (this.value <= 150000) {
+      if (opcao === 1) {
+        return '576,37';
+      } else if (opcao === 2) {
+        return '591,37';
+      } else if (opcao === 3) {
+        return '616,27';
+      }
+    } else if (this.value <= 160000) {
+      if (opcao === 1) {
+        return '618,47';
+      } else if (opcao === 2) {
+        return '633,47';
+      } else if (opcao === 3) {
+        return '658,37';
+      }
+    } else if (this.value <= 170000) {
+      if (opcao === 1) {
+        return '679,84';
+      } else if (opcao === 2) {
+        return '694,84';
+      } else if (opcao === 3) {
+        return '719,74';
+      }
+    } else if (this.value <= 180000) {
+      if (opcao === 1) {
+        return '713,88';
+      } else if (opcao === 2) {
+        return '728,88';
+      } else if (opcao === 3) {
+        return '753,78';
+      }
+    } else if (this.value <= 190000) {
+      if (opcao === 1) {
+        return '754,87';
+      } else if (opcao === 2) {
+        return '769,87';
+      } else if (opcao === 3) {
+        return '794,77';
+      }
+    } else if (this.value <= 200000) {
+      if (opcao === 1) {
+        return '799,54';
+      } else if (opcao === 2) {
+        return '814,54';
+      } else if (opcao === 3) {
+        return '839,44';
       }
     }
     return '0,00';
@@ -457,10 +560,6 @@ export class DetailsComponent implements OnInit {
       return '115.00';
     } else if (this.value <= 3000000) {
       return '118.00';
-    } else if (this.value <= 4000000) {
-      return '213.89';
-    } else if (this.value <= 5000000) {
-      return '241.89';
     }
     return '0';
   }

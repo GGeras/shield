@@ -12,7 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     DetailsComponent,
-
     FormatoNumericoDirective,
     SearchFipeComponent
   ],
