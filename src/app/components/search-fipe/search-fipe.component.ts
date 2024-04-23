@@ -105,13 +105,13 @@ export class SearchFipeComponent implements OnInit {
   returnUrlIcon(id: number): any {
     switch (id) {
       case 0:
-        return '../assets/car-side-svgrepo-com.svg';
+        return '../assets/car-side.svg';
       case 1:
-        return '../assets/truck-svgrepo-com.svg';
+        return '../assets/truck.svg';
       case 2:
-        return '../assets/motorbike-svgrepo-com.svg';
+        return '../assets/motorbike.svg';
       case 3:
-        return '../assets/bicycle-svgrepo-com.svg';
+        return '../assets/bicycle.svg';
       case 4:
         return '../assets/enclosed-trailer.svg';
     }
@@ -169,22 +169,18 @@ export class SearchFipeComponent implements OnInit {
           console.log('this.value', this.value);
 
           if(this.accordionExpanded === 1 && this.value >= 200001){
-            console.log('carro passou do limite');
             this.msg = "O valor ultrapassa o limite de R$ 200.000,00. Por favor, altere o veiculo e tente novamente.";
             this.showModal = true;
             return;
           } else if (this.accordionExpanded === 2 && this.value >= 200001){
             this.msg = "O valor ultrapassa o limite de R$ 200.000,00. Por favor, altere o veiculo e tente novamente.";
             this.showModal = true;
-            console.log('caminhão passou do limite');
             return;
           } else if (this.accordionExpanded === 3 && this.value >= 60001){
             this.msg = "O valor ultrapassa o limite de R$ 60.000,00. Por favor, altere o veiculo e tente novamente.";
             this.showModal = true;
-            console.log('moto passou do limite');
             return;
           }
-
           this.detalhes.type = this.accordionExpanded;
           this.setValue.emit(this.value);
           this.setDetails.emit(this.detalhes);
@@ -197,11 +193,11 @@ export class SearchFipeComponent implements OnInit {
   returnIcon(acordionId: number): string {
     switch (acordionId) {
       case this.accordionHovered:
-        return '../assets/down-dourado-svgrepo-com.svg';
+        return '../assets/down-dourado.svg';
       case this.accordionExpanded:
-        return '../assets/down-dourado-svgrepo-com.svg';
+        return '../assets/down-dourado.svg';
       default:
-        return '../assets/down-chevron-svgrepo-com.svg';
+        return '../assets/down-chevron.svg';
     }
   }
   atualizarDetalhes(event: any) {

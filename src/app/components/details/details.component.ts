@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DetailsFuntions } from 'src/app/core/details-funtions';
 
 @Component({
   selector: 'app-details',
@@ -13,30 +14,30 @@ export class DetailsComponent implements OnInit {
   value2!: string;
   value3!: string;
   valorTotal!: string;
-  constructor() {}
+  constructor(public detailsFuntions: DetailsFuntions) {}
 
   ngOnInit(): void {
     const amountInReal = parseInt(this.value) / 100;
 
     switch (this.detalhes.type) {
       case 1:
-        this.value1 = this.returnCarroValue(1);
-        this.value2 = this.returnCarroValue(2);
-        this.value3 = this.returnCarroValue(3);
+        this.value1 = this.detailsFuntions.returnCarroValue(1, this.value);
+        this.value2 = this.detailsFuntions.returnCarroValue(2, this.value);
+        this.value3 = this.detailsFuntions.returnCarroValue(3, this.value);
         this.valorTotal = this.detalhes.Valor;
         break;
       case 2:
-        this.value1 = this.returnCaminhaoValue(1);
-        this.value2 = this.returnCaminhaoValue(2);
+        this.value1 = this.detailsFuntions.returnCaminhaoValue(1, this.value);
+        this.value2 = this.detailsFuntions.returnCaminhaoValue(2, this.value);
         this.valorTotal = this.detalhes.Valor;
         break;
       case 3:
-        this.value1 = this.returnMotoValue(1);
-        this.value2 = this.returnMotoValue(2);
+        this.value1 = this.detailsFuntions.returnMotoValue(1, this.value);
+        this.value2 = this.detailsFuntions.returnMotoValue(2, this.value);
         this.valorTotal = this.detalhes.Valor;
         break;
       case 4:
-        this.value1 = this.returnBikeValue();
+        this.value1 = this.detailsFuntions.returnBikeValue(this.value);
         this.valorTotal = amountInReal.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
@@ -47,7 +48,7 @@ export class DetailsComponent implements OnInit {
           .replace(',', '');
         break;
       case 5:
-        this.value1 = this.returnCarretaValue();
+        this.value1 = this.detailsFuntions.returnCarretaValue(this.value);
         this.valorTotal = amountInReal.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
@@ -59,562 +60,121 @@ export class DetailsComponent implements OnInit {
         break;
     }
     console.log('value', this.value);
+    console.log('detalhes', this.detalhes);
   }
 
-
-  abrirWhatsApp() {
-    const linkWhatsApp = this.construirLinkWhatsApp();
+  abrirWhatsApp(combo: number) {
+    const linkWhatsApp = this.construirLinkWhatsApp(combo);
     window.open(linkWhatsApp, '_blank');
   }
 
-  construirLinkWhatsApp(): string {
-    const mensagemPartes = [
-      "Olá! 🚗✨ Estou super animado em saber que você está interessado em proteger seu veículo! 😊:",
-      `- Marca: ${this.detalhes.Marca}`,
-      `- Modelo: ${this.detalhes.Modelo}`,
-      `- Ano Modelo: ${this.detalhes.AnoModelo}`,
-      `- Valor: ${this.detalhes.Valor}`,
-      `- Combustível: ${this.detalhes.Combustivel}`,
-      "Escolhi o combo COMPLETO!",
-      `No valor de ${this.valorTotal}`
+  construirLinkWhatsApp(combo: number): string {
+    let mensagemPartes = [''];
+    let mensalidade;
+    let itensList = [
+      '- *Roubo e furto*\n',
+      '- *Incêndio*\n',
+      '- *Fenômenos Naturais*\n',
+      '- *Colisão*\n',
+      '- *Assistência 24h*\n',
+      '- *Guincho 600km (300 ida e 300 volta)*\n',
+      '- *Guincho ilimitado - Acidente*\n',
+      '- *Pane Seca*\n',
+      '- *Troca de pneu*\n',
+      '- *Retorno ao Domicílio*\n',
+      '- *Uber/Pop*\n',
     ];
-  
-    const mensagemCodificada = mensagemPartes.map(part => encodeURIComponent(part)).join('%0A');
-    
+    let comboOption;
+    if (this.moto || this.caminhao) {
+      if (combo === 1) {
+        comboOption = 'MÉDIO';
+      } else if (combo === 2) {
+        itensList.push('- *Danos a Terceiros*\n');
+        comboOption = 'COMPLETO';
+      }
+    } else if (this.carro) {
+      itensList.push('- *Guarda Veículo*\n');
+      if (combo === 1) {
+        comboOption = 'BÁSICO';
+      } else if (combo === 2) {
+        comboOption = 'MÉDIO';
+        itensList.push('- *Danos a Terceiros*\n');
+      } else if (combo === 3) {
+        itensList.push('- *Danos a Terceiros*\n');
+        itensList.push('- *Carro reserva (15 dias)*\n');
+        itensList.push('- *Proteção de Vidros*\n');
+        itensList.push('- *Coparticipação reduzida*\n');
+        comboOption = 'COMPLETO';
+      }
+    } else {
+      comboOption = 'BÁSICO';
+    }
+    switch (combo) {
+      case 1:
+        mensalidade = this.value1;
+        break;
+      case 2:
+        mensalidade = this.value2;
+        break;
+      case 3:
+        mensalidade = this.value3;
+        break;
+    }
+
+    if (
+      this.detalhes.type === 1 ||
+      this.detalhes.type === 2 ||
+      this.detalhes.type === 3
+    ) {
+      mensagemPartes = [
+        'Olá! Acabei de consultar a proteção do meu veículo no site e aqui estão os detalhes:\n',
+        `- *Marca:* ${this.detalhes.Marca}`,
+        `- *Modelo:* ${this.detalhes.Modelo}`,
+        `- *Ano Modelo:* ${this.detalhes.AnoModelo}`,
+        `- *Valor:* ${this.detalhes.Valor}`,
+        `- *Combustível:* ${this.detalhes.Combustivel}`,
+        `- *FIPE:* ${this.detalhes.CodigoFipe} \n`,
+        `Optei pelo combo *_${comboOption}!_*, que oferece os seguintes benefícios:\n`,
+        `${itensList.join('')}`,
+        `Com o valor de mensalidade de apenas *_R$ ${mensalidade}_*`,
+      ];
+    } else if (this.detalhes.type === 4) {
+      mensagemPartes = [
+        'Olá! Acabei de consultar a proteção da minha bicicleta no site e aqui estão os detalhes:\n',
+        `- *Valor protegido:* ${this.valorTotal}`,
+        `- *Benefícios:* Roubo e furto - Perda Total 100% da FIPE`,
+        `- *Mensalidade:* ${this.value1}`,
+      ];
+    } else if (this.detalhes.type === 5) {
+      mensagemPartes = [
+        'Olá! Acabei de consultar a proteção da minha carreta no site e aqui estão os detalhes:\n',
+        `- *Valor protegido:* ${this.valorTotal}`,
+        `- *Benefícios:* Roubo e furto`,
+        `- *Mensalidade:* ${this.value1}`,
+      ];
+    }
+    const mensagemCodificada = mensagemPartes
+      .map((part) => encodeURI(part))
+      .join('%0A');
+
     return `https://wa.me/5534999475690?text=${mensagemCodificada}`;
   }
 
-  returnCarroValue(opcao: number): string {
-    if (this.value <= 15000) {
-      if (opcao === 1) {
-        return '79,99';
-      } else if (opcao === 2) {
-        return '94,99';
-      } else if (opcao === 3) {
-        return '119,89';
-      }
-    } else if (this.value <= 20000) {
-      if (opcao === 1) {
-        return '89,85';
-      } else if (opcao === 2) {
-        return '104,85';
-      } else if (opcao === 3) {
-        return '129,75';
-      }
-    } else if (this.value <= 25000) {
-      if (opcao === 1) {
-        return '100,93';
-      } else if (opcao === 2) {
-        return '115,93';
-      } else if (opcao === 3) {
-        return '140,83';
-      }
-    } else if (this.value <= 30000) {
-      if (opcao === 1) {
-        return '109,04';
-      } else if (opcao === 2) {
-        return '124,04';
-      } else if (opcao === 3) {
-        return '148,94';
-      }
-    } else if (this.value <= 35000) {
-      if (opcao === 1) {
-        return '119,94';
-      } else if (opcao === 2) {
-        return '134,94';
-      } else if (opcao === 3) {
-        return '159,84';
-      }
-    } else if (this.value <= 40000) {
-      if (opcao === 1) {
-        return '131,99';
-      } else if (opcao === 2) {
-        return '146,99';
-      } else if (opcao === 3) {
-        return '171,89';
-      }
-    } else if (this.value <= 45000) {
-      if (opcao === 1) {
-        return '149,89';
-      } else if (opcao === 2) {
-        return '164,89';
-      } else if (opcao === 3) {
-        return '189,79';
-      }
-    } else if (this.value <= 50000) {
-      if (opcao === 1) {
-        return '175,78';
-      } else if (opcao === 2) {
-        return '190,78';
-      } else if (opcao === 3) {
-        return '215,78';
-      }
-    } else if (this.value <= 55000) {
-      if (opcao === 1) {
-        return '188,41';
-      } else if (opcao === 2) {
-        return '203,41';
-      } else if (opcao === 3) {
-        return '228,41';
-      }
-    } else if (this.value <= 60000) {
-      if (opcao === 1) {
-        return '199,72';
-      } else if (opcao === 2) {
-        return '214,72';
-      } else if (opcao === 3) {
-        return '239,72';
-      }
-    } else if (this.value <= 65000) {
-      if (opcao === 1) {
-        return '219,50';
-      } else if (opcao === 2) {
-        return '234,50';
-      } else if (opcao === 3) {
-        return '259,50';
-      }
-    } else if (this.value <= 70000) {
-      if (opcao === 1) {
-        return '239,21';
-      } else if (opcao === 2) {
-        return '254,21';
-      } else if (opcao === 3) {
-        return '279,21';
-      }
-    } else if (this.value <= 75000) {
-      if (opcao === 1) {
-        return '256,17';
-      } else if (opcao === 2) {
-        return '271,17';
-      } else if (opcao === 3) {
-        return '296,17';
-      }
-    } else if (this.value <= 80000) {
-      if (opcao === 1) {
-        return '273,45';
-      } else if (opcao === 2) {
-        return '288,45';
-      } else if (opcao === 3) {
-        return '313,45';
-      }
-    } else if (this.value <= 85000) {
-      if (opcao === 1) {
-        return '289,99';
-      } else if (opcao === 2) {
-        return '304,99';
-      } else if (opcao === 3) {
-        return '329,99';
-      }
-    } else if (this.value <= 90000) {
-      if (opcao === 1) {
-        return '319,41';
-      } else if (opcao === 2) {
-        return '334,41';
-      } else if (opcao === 3) {
-        return '359,41';
-      }
-    } else if (this.value <= 95000) {
-      if (opcao === 1) {
-        return '334,88';
-      } else if (opcao === 2) {
-        return '349,88';
-      } else if (opcao === 3) {
-        return '374,88';
-      }
-    } else if (this.value <= 100000) {
-      if (opcao === 1) {
-        return '376,14';
-      } else if (opcao === 2) {
-        return '391,14';
-      } else if (opcao === 3) {
-        return '416,14';
-      }
-    } else if (this.value <= 110000) {
-      if (opcao === 1) {
-        return '408,15';
-      } else if (opcao === 2) {
-        return '423,15';
-      } else if (opcao === 3) {
-        return '448,05';
-      }
-    } else if (this.value <= 120000) {
-      if (opcao === 1) {
-        return '455,95';
-      } else if (opcao === 2) {
-        return '470,95';
-      } else if (opcao === 3) {
-        return '495,85';
-      }
-    } else if (this.value <= 130000) {
-      if (opcao === 1) {
-        return '499,76';
-      } else if (opcao === 2) {
-        return '514,76';
-      } else if (opcao === 3) {
-        return '539,66';
-      }
-    } else if (this.value <= 140000) {
-      if (opcao === 1) {
-        return '539,25';
-      } else if (opcao === 2) {
-        return '554,25';
-      } else if (opcao === 3) {
-        return '579,15';
-      }
-    } else if (this.value <= 150000) {
-      if (opcao === 1) {
-        return '576,37';
-      } else if (opcao === 2) {
-        return '591,37';
-      } else if (opcao === 3) {
-        return '616,27';
-      }
-    } else if (this.value <= 160000) {
-      if (opcao === 1) {
-        return '618,47';
-      } else if (opcao === 2) {
-        return '633,47';
-      } else if (opcao === 3) {
-        return '658,37';
-      }
-    } else if (this.value <= 170000) {
-      if (opcao === 1) {
-        return '679,84';
-      } else if (opcao === 2) {
-        return '694,84';
-      } else if (opcao === 3) {
-        return '719,74';
-      }
-    } else if (this.value <= 180000) {
-      if (opcao === 1) {
-        return '713,88';
-      } else if (opcao === 2) {
-        return '728,88';
-      } else if (opcao === 3) {
-        return '753,78';
-      }
-    } else if (this.value <= 190000) {
-      if (opcao === 1) {
-        return '754,87';
-      } else if (opcao === 2) {
-        return '769,87';
-      } else if (opcao === 3) {
-        return '794,77';
-      }
-    } else if (this.value <= 200000) {
-      if (opcao === 1) {
-        return '799,54';
-      } else if (opcao === 2) {
-        return '814,54';
-      } else if (opcao === 3) {
-        return '839,44';
-      }
-    }
-    return '0,00';
-  }
-
-  returnMotoValue(opcao: number): string {
-    if (this.value <= 5000) {
-      if (opcao === 1) {
-        return '50.99';
-      } else if (opcao === 2) {
-        return '65.99';
-      }
-    } else if (this.value <= 7500) {
-      if (opcao === 1) {
-        return '70.99';
-      } else if (opcao === 2) {
-        return '85.99';
-      }
-    } else if (this.value <= 10000) {
-      if (opcao === 1) {
-        return '79.99';
-      } else if (opcao === 2) {
-        return '94.99';
-      }
-    } else if (this.value <= 12500) {
-      if (opcao === 1) {
-        return '91.99';
-      } else if (opcao === 2) {
-        return '106.99';
-      }
-    } else if (this.value <= 15000) {
-      if (opcao === 1) {
-        return '101.99';
-      } else if (opcao === 2) {
-        return '116.99';
-      }
-    } else if (this.value <= 17500) {
-      if (opcao === 1) {
-        return '117.99';
-      } else if (opcao === 2) {
-        return '132.99';
-      }
-    } else if (this.value <= 20000) {
-      if (opcao === 1) {
-        return '129.99';
-      } else if (opcao === 2) {
-        return '144.99';
-      }
-    } else if (this.value <= 25000) {
-      if (opcao === 1) {
-        return '157.45';
-      } else if (opcao === 2) {
-        return '172.45';
-      }
-    } else if (this.value <= 30000) {
-      if (opcao === 1) {
-        return '185.67';
-      } else if (opcao === 2) {
-        return '200.67';
-      }
-    } else if (this.value <= 40000) {
-      if (opcao === 1) {
-        return '213.89';
-      } else if (opcao === 2) {
-        return '228.89';
-      }
-    } else if (this.value <= 50000) {
-      if (opcao === 1) {
-        return '241.89';
-      } else if (opcao === 2) {
-        return '256.89';
-      }
-    } else if (this.value <= 60000) {
-      if (opcao === 1) {
-        return '279.54';
-      } else if (opcao === 2) {
-        return '294.54';
-      }
-    }
-    return '0';
-  }
   returnUrlIcon(): any {
     switch (this.detalhes.type) {
       case 1:
-        return '../../../assets/car-side-svgrepo-com.svg';
+        return '../../../assets/car-side.svg';
       case 2:
-        return '../../../assets/truck-svgrepo-com.svg';
+        return '../../../assets/truck.svg';
       case 3:
-        return '../../../assets/motorbike-svgrepo-com.svg';
+        return '../../../assets/motorbike.svg';
       case 4:
-        return '../../../assets/bicycle-svgrepo-com.svg';
+        return '../../../assets/bicycle.svg';
       case 5:
         return '../../../assets/enclosed-trailer.svg';
     }
   }
-  returnCarretaValue(): string {
-    if (this.value <= 1000000) {
-      return '151.20';
-    } else if (this.value <= 2000000) {
-      return '163.80';
-    } else if (this.value <= 3000000) {
-      return '176.40';
-    } else if (this.value <= 4000000) {
-      return '189.00';
-    } else if (this.value <= 5000000) {
-      return '201.60';
-    } else if (this.value <= 6000000) {
-      return '214.20';
-    } else if (this.value <= 7000000) {
-      return '226.80';
-    } else if (this.value <= 8000000) {
-      return '239.40';
-    } else if (this.value <= 9000000) {
-      return '252.00';
-    } else if (this.value <= 10000000) {
-      return '264.69';
-    } else if (this.value <= 11000000) {
-      return '277.20';
-    } else if (this.value <= 12000000) {
-      return '289.80';
-    } else if (this.value <= 13000000) {
-      return '302.40';
-    } else if (this.value <= 14000000) {
-      return '315.00';
-    } else if (this.value <= 15000000) {
-      return '327.60';
-    } else if (this.value <= 16000000) {
-      return '340.20';
-    } else if (this.value <= 17000000) {
-      return '352.80';
-    } else if (this.value <= 18000000) {
-      return '365.40';
-    } else if (this.value <= 19000000) {
-      return '378.00';
-    } else if (this.value <= 20000000) {
-      return '390.60';
-    }
-    return '0;';
-  }
-  returnBikeValue(): string {
-    if (this.value <= 240000) {
-      return '22.00';
-    } else if (this.value <= 290000) {
-      return '24.00';
-    } else if (this.value <= 340000) {
-      return '24.50';
-    } else if (this.value <= 390000) {
-      return '26.50';
-    } else if (this.value <= 440000) {
-      return '30.00';
-    } else if (this.value <= 490000) {
-      return '35.00';
-    } else if (this.value <= 540000) {
-      return '37.00';
-    } else if (this.value <= 590000) {
-      return '40.00';
-    } else if (this.value <= 640000) {
-      return '42.00';
-    } else if (this.value <= 690000) {
-      return '44.00';
-    } else if (this.value <= 740000) {
-      return '45.50';
-    } else if (this.value <= 790000) {
-      return '47.00';
-    } else if (this.value <= 840000) {
-      return '49.00';
-    } else if (this.value <= 890000) {
-      return '51.00';
-    } else if (this.value <= 940000) {
-      return '52.50';
-    } else if (this.value <= 990000) {
-      return '54.00';
-    } else if (this.value <= 1040000) {
-      return '55.50';
-    } else if (this.value <= 1090000) {
-      return '57.00';
-    } else if (this.value <= 1140000) {
-      return '58.50';
-    } else if (this.value <= 1190000) {
-      return '59.40';
-    } else if (this.value <= 1240000) {
-      return '60.20';
-    } else if (this.value <= 1290000) {
-      return '61.00';
-    } else if (this.value <= 1340000) {
-      return '61.90';
-    } else if (this.value <= 1390000) {
-      return '62.60';
-    } else if (this.value <= 1440000) {
-      return '63.15';
-    } else if (this.value <= 1490000) {
-      return '64.65';
-    } else if (this.value <= 1540000) {
-      return '65.00';
-    } else if (this.value <= 1590000) {
-      return '65.50';
-    } else if (this.value <= 1640000) {
-      return '66.00';
-    } else if (this.value <= 1690000) {
-      return '68.00';
-    } else if (this.value <= 1740000) {
-      return '69.50';
-    } else if (this.value <= 1790000) {
-      return '71.00';
-    } else if (this.value <= 1840000) {
-      return '73.00';
-    } else if (this.value <= 1890000) {
-      return '74.50';
-    } else if (this.value <= 1940000) {
-      return '76.00';
-    } else if (this.value <= 1990000) {
-      return '78.00';
-    } else if (this.value <= 2040000) {
-      return '79.50';
-    } else if (this.value <= 2090000) {
-      return '81.00';
-    } else if (this.value <= 2140000) {
-      return '83.50';
-    } else if (this.value <= 2190000) {
-      return '85.00';
-    } else if (this.value <= 2240000) {
-      return '87.00';
-    } else if (this.value <= 2290000) {
-      return '90.00';
-    } else if (this.value <= 2340000) {
-      return '92.00';
-    } else if (this.value <= 2390000) {
-      return '93.50';
-    } else if (this.value <= 2440000) {
-      return '95.00';
-    } else if (this.value <= 2490000) {
-      return '97.00';
-    } else if (this.value <= 2540000) {
-      return '98.60';
-    } else if (this.value <= 2590000) {
-      return '99.90';
-    } else if (this.value <= 2640000) {
-      return '102.00';
-    } else if (this.value <= 2690000) {
-      return '103.50';
-    } else if (this.value <= 2740000) {
-      return '105.00';
-    } else if (this.value <= 2790000) {
-      return '107.00';
-    } else if (this.value <= 2840000) {
-      return '109.00';
-    } else if (this.value <= 2890000) {
-      return '112.00';
-    } else if (this.value <= 2950000) {
-      return '115.00';
-    } else if (this.value <= 3000000) {
-      return '118.00';
-    }
-    return '0';
-  }
-  returnCaminhaoValue(opcao: number): string {
-    if (this.value <= 50000) {
-      if (opcao === 1) {
-        return '323.44';
-      } else if (opcao === 2) {
-        return '423.44';
-      }
-    } else if (this.value <= 80000) {
-      if (opcao === 1) {
-        return '465.11';
-      } else if (opcao === 2) {
-        return '565.11';
-      }
-    } else if (this.value <= 100000) {
-      if (opcao === 1) {
-        return '499.87';
-      } else if (opcao === 2) {
-        return '599.87';
-      }
-    } else if (this.value <= 120000) {
-      if (opcao === 1) {
-        return '460.75';
-      } else if (opcao === 2) {
-        return '559.75';
-      }
-    } else if (this.value <= 140000) {
-      if (opcao === 1) {
-        return '536.17';
-      } else if (opcao === 2) {
-        return '635.17';
-      }
-    } else if (this.value <= 160000) {
-      if (opcao === 1) {
-        return '596.93';
-      } else if (opcao === 2) {
-        return '695.93';
-      }
-    } else if (this.value <= 180000) {
-      if (opcao === 1) {
-        return '657.71';
-      } else if (opcao === 2) {
-        return '756.71';
-      }
-    } else if (this.value <= 200000) {
-      if (opcao === 1) {
-        return '731.28';
-      } else if (opcao === 2) {
-        return '830.28';
-      }
-    }
-    return '0';
-  }
+
   get carro(): boolean {
     return this.detalhes.type === 1;
   }
