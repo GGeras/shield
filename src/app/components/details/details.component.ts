@@ -70,40 +70,41 @@ export class DetailsComponent implements OnInit {
 
   construirLinkWhatsApp(combo: number): string {
     let mensagemPartes = [''];
+    let msgFinal = [''];
     let mensalidade;
     let itensList = [
-      '- *Roubo e furto*\n',
-      '- *Incêndio*\n',
-      '- *Fenômenos Naturais*\n',
-      '- *Colisão*\n',
-      '- *Assistência 24h*\n',
-      '- *Guincho 600km (300 ida e 300 volta)*\n',
-      '- *Guincho ilimitado - Acidente*\n',
-      '- *Pane Seca*\n',
-      '- *Troca de pneu*\n',
-      '- *Retorno ao Domicílio*\n',
-      '- *Uber/Pop*\n',
+      '- *Roubo e furto* 🔒\n',
+      '- *Incêndio* 🔥\n',
+      '- *Fenômenos Naturais* 🌪️\n',
+      '- *Colisão* 💥\n',
+      '- *Assistência 24h* 🆘\n',
+      '- *Guincho 600km (300 ida e 300 volta)* 🚛\n',
+      '- *Guincho ilimitado - Acidente* 🚨\n',
+      '- *Pane Seca* ⛽\n',
+      '- *Troca de pneu* 🛠️\n',
+      '- *Retorno ao Domicílio* 🏠\n',
+      '- *Uber/Pop* 🚖\n',
     ];
     let comboOption;
     if (this.moto || this.caminhao) {
       if (combo === 1) {
         comboOption = 'MÉDIO';
       } else if (combo === 2) {
-        itensList.push('- *Danos a Terceiros*\n');
+        itensList.push('- *Danos a Terceiros* 🚗💥🚙\n');
         comboOption = 'COMPLETO';
       }
     } else if (this.carro) {
-      itensList.push('- *Guarda Veículo*\n');
+      itensList.push('- *Guarda Veículo* 🅿️\n');
       if (combo === 1) {
         comboOption = 'BÁSICO';
       } else if (combo === 2) {
         comboOption = 'MÉDIO';
-        itensList.push('- *Danos a Terceiros*\n');
+        itensList.push('- *Danos a Terceiros* 🚗💥🚙\n');
       } else if (combo === 3) {
-        itensList.push('- *Danos a Terceiros*\n');
-        itensList.push('- *Carro reserva (15 dias)*\n');
-        itensList.push('- *Proteção de Vidros*\n');
-        itensList.push('- *Coparticipação reduzida*\n');
+        itensList.push('- *Danos a Terceiros* 🚗💥🚙\n');
+        itensList.push('- *Carro reserva (15 dias) 🚗🔄🚙*\n');
+        itensList.push('- *Proteção de Vidros* 🛡️\n');
+        itensList.push('- *Coparticipação reduzida* 📉💰\n');
         comboOption = 'COMPLETO';
       }
     } else {
@@ -121,13 +122,34 @@ export class DetailsComponent implements OnInit {
         break;
     }
 
+
+    if (this.carro) {
+      msgFinal = [
+        `- *Mensalidade:* R$ ${mensalidade} \n`,
+        `- *Coparticipação:* ${combo === 3 ? '7%' : '10%'} \n`,
+        `- *Coparticipação mínima:* R$ 900,00 \n`,
+      ];
+    }else if (this.caminhao) {
+      msgFinal = [
+        `- *Mensalidade:* R$ ${mensalidade} \n`,
+        `- *Coparticipação:* ${this.value >= 100000 ? '7%' : '10%'} \n`,
+        `- *Coparticipação mínima:* ${this.value >= 100000 ? 'R$ 2000,00' : 'R$ 2.500,00'} \n`,
+        `- *Necessário rastreador:* R$ 50,00 \n`,
+      ];
+    } else if (this.moto) {
+      msgFinal = [
+        `- *Mensalidade:* R$ ${mensalidade} \n`,
+      ];
+    }
+
     if (
       this.detalhes.type === 1 ||
       this.detalhes.type === 2 ||
       this.detalhes.type === 3
     ) {
       mensagemPartes = [
-        'Olá! Acabei de consultar a proteção do meu veículo no site e aqui estão os detalhes:\n',
+        'Olá! Tudo bem?✨\n',
+        'Acabei de consultar a proteção do meu veículo no site e aqui estão os detalhes:\n',
         `- *Marca:* ${this.detalhes.Marca}`,
         `- *Modelo:* ${this.detalhes.Modelo}`,
         `- *Ano Modelo:* ${this.detalhes.AnoModelo}`,
@@ -136,18 +158,21 @@ export class DetailsComponent implements OnInit {
         `- *FIPE:* ${this.detalhes.CodigoFipe} \n`,
         `Optei pelo combo *_${comboOption}!_*, que oferece os seguintes benefícios:\n`,
         `${itensList.join('')}`,
-        `Com o valor de mensalidade de apenas *_R$ ${mensalidade}_*`,
+        `Conforme os benefícios apresentados acima, os valores acertados serão de:`,
+        `${msgFinal.join('')}`,
       ];
     } else if (this.detalhes.type === 4) {
       mensagemPartes = [
-        'Olá! Acabei de consultar a proteção da minha bicicleta no site e aqui estão os detalhes:\n',
+        'Olá! Tudo bem?✨\n',
+        'Acabei de consultar a proteção da minha bicicleta no site e aqui estão os detalhes:\n',
         `- *Valor protegido:* ${this.valorTotal}`,
         `- *Benefícios:* Roubo e furto - Perda Total 100% da FIPE`,
         `- *Mensalidade:* ${this.value1}`,
       ];
     } else if (this.detalhes.type === 5) {
       mensagemPartes = [
-        'Olá! Acabei de consultar a proteção da minha carreta no site e aqui estão os detalhes:\n',
+        'Olá! Tudo bem?✨\n',
+        'Acabei de consultar a proteção da minha carreta no site e aqui estão os detalhes:\n',
         `- *Valor protegido:* ${this.valorTotal}`,
         `- *Benefícios:* Roubo e furto`,
         `- *Mensalidade:* ${this.value1}`,
@@ -157,7 +182,12 @@ export class DetailsComponent implements OnInit {
       .map((part) => encodeURI(part))
       .join('%0A');
 
-    return `https://wa.me/5534999475690?text=${mensagemCodificada}`;
+    return (
+      'https://api.whatsapp.com/send/?phone=' +
+      '5534999475690' +
+      '&text=' +
+      mensagemCodificada
+    );
   }
 
   returnUrlIcon(): any {
