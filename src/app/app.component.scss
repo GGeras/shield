@@ -9,10 +9,10 @@
   height: 19vh;
   background: linear-gradient(90deg, #020835 30%, var(--cor-1) 100%);
   box-shadow: 0 12px 22px 0 rgba(0, 0, 0, 0.4);
-  margin-bottom: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .body {
@@ -27,7 +27,9 @@
 }
 
 .box-vantagem {
-  padding: 10px 15px;
+  background-color: var(--cor-1);
+  line-height: 1.2;
+  padding: 20px;
 }
 
 .box {
@@ -66,6 +68,7 @@
   flex-direction: column;
   text-align: center;
   padding: 20px 15px;
+  line-height: 1.2;
 }
 
 .texto-vantagem h2 {
@@ -81,8 +84,10 @@
 
 .title {
   margin-top: 10px;
+  padding-top: 30px;
   text-align: center;
-  color: var(--cor-1);
+  color: white;
+  background-color: var(--cor-1);
   font-size: 36px;
   font-weight: 600;
   text-decoration: underline;
@@ -93,7 +98,7 @@
 }
 
 .app {
-  padding: 20px 0;
+  padding: 30px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,6 +117,7 @@
   text-align: center;
   font-size: 26px;
   font-weight: 500;
+  line-height: 1.2;
 }
 
 .app-desc h2 span {
@@ -156,6 +162,8 @@
   flex-direction: column;
   padding: 50px 15px;
   color: var(--cor-1);
+  line-height: 1.2;
+  min-height: calc(10vh - -200px);
   background: url("../../src/assets/background-video.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -170,6 +178,25 @@
     text-align: center;
     font-size: 26px;
     font-weight: 600;
+  }
+}
+
+
+.mapa-container {	
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 30px 20px;
+  h1{
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--cor-2);
+    margin-bottom: 30px;
+  }
+  h2{
+    font-size: 26px;
+    line-height: 1.2;
+    color: var(--cor-1);
   }
 }
 
@@ -196,10 +223,10 @@
 }
 
 @media screen and (min-width: 1550px) {
-  .texto-vantagem{
+  .texto-vantagem {
     padding: 20px 60px;
   }
-  .box-vantagem{
+  .box-vantagem {
     padding: 10px 60px;
   }
 }
@@ -209,13 +236,26 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px;
   }
-
   .box {
     width: auto;
+  }
+
+  .mapa{
+    text-align: left;
+    width: 30%;
   }
 
   .container-check {
     display: flex;
     gap: 20px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .img-map{
+    display: none;
+  }
+  .mapa{
+    text-align: center;
+    width: auto;
   }
 }

@@ -4,8 +4,9 @@
   </div>
   <div class="body w-100">
     <ng-container *ngIf="!detalhes">
-      <div style="padding: 0 15px 0 13px">
+      <div style="padding: 0 15px 0 13px; display: flex">
         <app-search-fipe
+          style="width: 100%"
           (setValue)="value = $event"
           (setDetails)="detalhes = $event"
         ></app-search-fipe>
@@ -32,6 +33,7 @@
           clientes.
         </h2>
       </div>
+
       <div class="title">Serviços</div>
       <div class="box-vantagem">
         <div class="box w-100" *ngFor="let item of cards">
@@ -42,6 +44,18 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="mapa-container">
+      <div class="mapa">
+        <h1>Atendemos em todo o território nacional</h1>
+        <h2>
+          Para que o cliente tenha maior flexibilidade e disponibilidade dos
+          nossos produtos, a Shield expandiu sua atuação para todo o território
+          nacional. Dessa forma o cliente pode ficar despreocupado inclusive
+          durante suas viagens pelo país
+        </h2>
+      </div>
+      <img src="../assets/brasil.png" alt="" width="400px" class="img-map" />
     </div>
     <div class="container-app w-100">
       <div class="app w-100">
@@ -58,16 +72,24 @@
         <div class="container-check w-90">
           <div class="check" *ngFor="let item of app">
             <img src="../assets/check.png" alt="" width="60px" />
-            <h2>{{item}}</h2>
+            <h2>{{ item }}</h2>
           </div>
         </div>
         <div class="app-download w-90">
           <h1>Baixe o app</h1>
           <div class="w-100">
-            <a href="https://play.google.com/store/apps/details?id=com.chefie.shield&pli=1" target="_blank">
-              <img src="../assets/google-play.png" alt="" width="175px"  />
+            <a
+              href="https://play.google.com/store/apps/details?id=com.chefie.shield&pli=1"
+              target="_blank"
+            >
+              <img src="../assets/google-play.png" alt="" width="175px" />
             </a>
-            <img src="../assets/apple-story.png" alt="" width="175px" />
+            <a
+              href="https://apps.apple.com/br/app/shield-proteção-veicular/id6473275483"
+              target="_blank"
+            >
+              <img src="../assets/apple-story.png" alt="" width="175px" />
+            </a>
           </div>
         </div>
       </div>
