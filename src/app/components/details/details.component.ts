@@ -132,8 +132,8 @@ export class DetailsComponent implements OnInit {
     }else if (this.caminhao) {
       msgFinal = [
         `- *Mensalidade:* R$ ${mensalidade} \n`,
-        `- *Coparticipação:* ${this.value >= 100000 ? '7%' : '10%'} \n`,
-        `- *Coparticipação mínima:* ${this.value >= 100000 ? 'R$ 2000,00' : 'R$ 2.500,00'} \n`,
+        `- *Coparticipação:* 7%\n`,
+        `- *Coparticipação mínima:* R$ 2000,00 \n`,
         `- *Necessário rastreador:* R$ 50,00 \n`,
       ];
     } else if (this.moto) {
@@ -158,7 +158,7 @@ export class DetailsComponent implements OnInit {
         `- *FIPE:* ${this.detalhes.CodigoFipe} \n`,
         `Optei pelo combo *_${comboOption}!_*, que oferece os seguintes benefícios:\n`,
         `${itensList.join('')}`,
-        `Conforme os benefícios apresentados acima, os valores acertados serão de:`,
+        `Conforme os benefícios apresentados acima, os valores acertados serão de: \n`,
         `${msgFinal.join('')}`,
       ];
     } else if (this.detalhes.type === 4) {
