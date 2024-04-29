@@ -1,6 +1,22 @@
 <div class="container">
   <div class="header">
-    <img src="../assets/logo_inteira.png" alt="" width="320px" height="100px" />
+    <div class="logo">
+      <img src="../assets/logo_inteira.png" alt="" class="img-logo" />
+    </div>
+    <div class="menu">
+      <span (click)="scrollToPosition(800)">Serviços</span>
+      <a href="https://shieldprotecao.web.app/" target="_blank"
+      >Área do Consultor</a
+    >
+      <span (click)="scrollToPosition(2100)">Sobre Nós</span>
+      <a href="https://kepler.hinova.com.br/sga/area/v5/login/" target="_blank"
+        >Segunda Via</a
+      >
+      <a [href]="map" target="_blank">Mapa</a>
+      <a href="https://shieldprotecao.web.app/" target="_blank"
+        >Clube de benefícios</a
+      >
+    </div>
   </div>
   <div class="body w-100">
     <ng-container *ngIf="!detalhes">
@@ -51,8 +67,9 @@
         <h2>
           Para que o cliente tenha maior flexibilidade e disponibilidade dos
           nossos produtos, a Shield expandiu sua atuação para todo o território
-          nacional. <br> Dessa forma o cliente pode ficar despreocupado inclusive
-          durante suas viagens pelo país
+          nacional. <br />
+          Dessa forma o cliente pode ficar despreocupado inclusive durante suas
+          viagens pelo país
         </h2>
       </div>
       <img src="../assets/brasil.png" alt="" width="490px" class="img-map" />
@@ -106,19 +123,23 @@
   </div>
   <div class="footer">
     <div class="column w-100">
-      <span>Sobre Nós</span>
-      <span>Fale Conosco</span>
-      <span>Serviços</span>
+      <span (click)="scrollToPosition(800)">Serviços</span>
+      <a
+        href="https://api.whatsapp.com/send/?phone=5534999475690"
+        target="_blank"
+        >Fale Conosco</a
+      >
+      <a target="_blank" [href]="map">Mapa</a>
     </div>
     <div class="bottom w-100">
       <div>Assistência 24h: 0800-030-6672</div>
     </div>
     <div class="bottom w-100">
-      <div>© 2024 Shield. Todos os direitos reservados.</div>
-    </div>
-    <div class="bottom w-100">
       Av. Getulio Vargas, 1328 - Uberlândia - MG 42.468.909/0001-19 - ASSOCIACAO
       SHIELD DE VEICULOS
+    </div>
+    <div class="bottom w-100">
+      <div>© 2024 Shield. Todos os direitos reservados.</div>
     </div>
   </div>
 </div>
