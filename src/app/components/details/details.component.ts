@@ -184,10 +184,21 @@ export class DetailsComponent implements OnInit {
 
     return (
       'https://api.whatsapp.com/send/?phone=' +
-      '5534999475690' +
+       this.returnNumber() +
       '&text=' +
       mensagemCodificada
     );
+  }
+
+
+  returnNumber(): string {
+    const randomNumbers: string[] = [
+      '5534997288484',
+      '5534984186589',
+      '5534984435669',
+    ];
+    const randomIndex = Math.floor(Math.random() * randomNumbers.length);
+    return randomNumbers[randomIndex];
   }
 
   returnUrlIcon(): any {

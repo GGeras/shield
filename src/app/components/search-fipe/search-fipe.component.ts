@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FipeService } from 'src/app/services/fipe.service';
 interface Accordion {
@@ -36,7 +36,7 @@ export class SearchFipeComponent implements OnInit {
     { id: 5, title: 'Consulta de Carretas' },
   ];
 
-  constructor(private fipeService: FipeService) {}
+  constructor(private fipeService: FipeService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.buscarMarcas();
@@ -70,6 +70,7 @@ export class SearchFipeComponent implements OnInit {
     } else {
       this.accordionExpanded = accordionId;
     }
+    this.cdr.detectChanges();
   }
   isValueBoxVisible(accordionId: number): boolean {
     return accordionId === 4 || accordionId === 5;
